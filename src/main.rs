@@ -5,8 +5,11 @@
 // main
 //
 
+mod intersection;
 mod vector3d;
 use vector3d::Vector3D;
+
+mod shape;
 
 fn main() {
     let mut vector3d = Vector3D {x: 3.0, y: 4.0, z: 5.0};

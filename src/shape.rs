@@ -5,17 +5,16 @@
 // shape
 //
 
-mod intersection;
-use intersection::{Intersection, Ray};
+use crate::intersection::{Intersection, Ray};
 
-struct Color {
+pub struct Color {
     r: u8,
     g: u8,
     b: u8,
     a: u8,
 }
 
-enum Material {
+pub enum Material {
     Color(Color),
     Mirror,
 }
@@ -30,5 +29,5 @@ pub trait Shape {
     /// If the ray doesn't intersect the shape, it returns None.
     fn intersect(&self, ray: &Ray) -> Option<Intersection>;
     /// Get the material of a shape
-    fn getMaterial(&self) -> Material;
+    fn material(&self) -> &Material;
 }

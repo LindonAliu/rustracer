@@ -5,7 +5,7 @@
 // intersection
 //
 
-mod vector3d;
+use crate::vector3d::{Point3D, Vector3D};
 
 /// Intersection struct
 ///
