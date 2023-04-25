@@ -7,6 +7,10 @@
 
 use crate::intersection::{Intersection, Ray};
 
+/// Color struct
+///
+/// This struct contains the RGBA values of a color.
+#[derive(Copy, Clone, Debug)]
 pub struct Color {
     r: u8,
     g: u8,
@@ -14,8 +18,18 @@ pub struct Color {
     a: u8,
 }
 
+/// Material enum
+///
+/// This enum contains the different materials that can be used.
+#[derive(Copy, Clone, Debug)]
 pub enum Material {
+    /// Color material
+    ///
+    /// This material represents a color.
     Color(Color),
+    /// Mirror material
+    ///
+    /// This material represents a mirror.
     Mirror,
 }
 
