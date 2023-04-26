@@ -7,25 +7,22 @@
 
 use crate::vector3d::{Point3D, Vector3D};
 
-/// Intersection struct
-///
-/// This struct contains the intersection point, the normal and the distance
-/// between the intersection point and the origin of the ray.
-///
-/// It is used to store the result of the intersection between a ray and
-/// a shape or a light.
+/// Store the result of the intersection between a ray and a shape or a light.
 #[derive(Copy, Clone, Debug)]
 pub struct Intersection {
+    /// The point of intersection between the ray and the shape.
     pub intersection_point: Point3D,
+    /// The normal of the shape at the point of intersection.
     pub normal: Vector3D,
+    /// The distance between the origin of the ray and the point of intersection.
     pub distance: f64,
 }
 
-/// Ray struct
-///
-/// This struct contains the origin and the direction of a ray.
+/// Represents a ray with an origin and a direction.
 #[derive(Copy, Clone, Debug)]
 pub struct Ray {
+    /// The origin of the ray, as a 3D point.
     pub origin: Point3D,
+    /// The direction of the ray, as a 3D vector.
     pub direction: Vector3D,
 }

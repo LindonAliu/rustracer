@@ -7,9 +7,7 @@
 
 use crate::intersection::{Intersection, Ray};
 
-/// Color struct
-///
-/// This struct contains the RGBA values of a color.
+/// Contains the RGBA values of a color.
 #[derive(Copy, Clone, Debug)]
 pub struct Color {
     r: u8,
@@ -18,27 +16,17 @@ pub struct Color {
     a: u8,
 }
 
-/// Material enum
-///
-/// This enum contains the different materials that can be used.
+/// Contains the different materials that can be used.
 #[derive(Copy, Clone, Debug)]
 pub enum Material {
-    /// Color material
-    ///
-    /// This material represents a color.
+    /// Represents a color, with optional transparency.
     Color(Color),
-    /// Mirror material
-    ///
-    /// This material represents a mirror.
+    /// Represents a mirror.
     Mirror,
 }
 
-/// Shape trait
-///
-/// This trait is used to define a shape.
+/// This trait is used to define any 3D shape.
 pub trait Shape {
-    /// Intersect a ray with a shape
-    ///
     /// This function returns an Intersection if the ray intersects the shape.
     /// If the ray doesn't intersect the shape, it returns None.
     fn intersect(&self, ray: &Ray) -> Option<Intersection>;
