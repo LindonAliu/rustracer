@@ -9,6 +9,7 @@ mod intersection;
 mod vector3d;
 mod shape;
 mod material;
+mod camera;
 
 use vector3d::Vector3D;
 
