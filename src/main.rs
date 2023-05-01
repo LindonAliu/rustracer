@@ -1,11 +1,16 @@
 //
 // EPITECH PROJECT, 2023
-// main
+// raytracer
 // File description:
-// FreeKOSOVO
+// main
 //
 
+mod intersection;
 mod vector3d;
+mod shape;
+mod material;
+mod camera;
+
 use vector3d::Vector3D;
 
 fn main() {

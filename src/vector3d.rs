@@ -1,11 +1,13 @@
 //
 // EPITECH PROJECT, 2023
-// vector
+// raytracer
 // File description:
-// FreeKOSOVO
+// vector 3d type
 //
 
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
+
+pub type Point3D = Vector3D;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Vector3D {
