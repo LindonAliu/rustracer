@@ -11,7 +11,7 @@ mod shape;
 mod material;
 mod camera;
 mod plane;
-mod shere;
+mod sphere;
 
 use vector3d::Vector3D;
 use vector3d::Point3D;

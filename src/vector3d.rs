@@ -25,10 +25,6 @@ impl Vector3D {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
 
-    pub fn sq(&self) -> Vector3D {
-        *self * *self
-    }
-
 }
 
 impl Add for Vector3D {
