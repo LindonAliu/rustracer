@@ -51,7 +51,7 @@ impl Shape for Sphere {
         let x1: f64 = (-pt_share.y + sq(delta)) / (2. * pt_share.x);
         let x2: f64 = (-pt_share.y - sq(delta)) / (2. * pt_share.x);
 
-        if delta < 0. || (x1 < 0. && x2 < 0. || delta.is_nan()) {
+        if delta < 0. || (x1 < 0. && x2 < 0.) || delta.is_nan() {
             return None;
         }
 
