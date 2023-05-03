@@ -10,12 +10,14 @@ mod vector3d;
 mod shape;
 mod material;
 mod camera;
-mod plane;
-mod sphere;
+mod intersections {
+    pub mod plane;
+    pub mod sphere;
+}
+use intersections::plane::Plane;
 
 use vector3d::Vector3D;
 use vector3d::Point3D;
-use plane::Plane;
 use crate::shape::Shape;
 use crate::intersection::Ray;
 use material::Material;
