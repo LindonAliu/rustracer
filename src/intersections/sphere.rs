@@ -9,7 +9,6 @@ use crate::intersection::{Intersection, Ray};
 use crate::material::Material;
 use crate::shape::Shape;
 use crate::vector3d::{Point3D, Vector3D};
-use std::cmp::min;
 
 #[derive(Copy, Clone, Debug)]
 pub struct Sphere {
@@ -42,14 +41,14 @@ fn sphere_calcul_intersect(sphere: &Sphere, ray: &Ray, x: f64) -> Option<Interse
 impl Shape for Sphere {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let pt: Vector3D = ray.origin - self.center;
-        let pt_share: Vector3D = Vector3D {
+        let pt_sphare: Vector3D = Vector3D {
             x: sq(ray.direction.x) + sq(ray.direction.y) + sq(ray.direction.z),
             y: (2. * pt.x * ray.direction.x) + (2. * pt.y * ray.direction.y) + (2. * pt.z * ray.direction.y),
             z: sq(pt.x) + sq(pt.y) + sq(pt.z) - sq(self.radius),
         };
-        let delta: f64 = sq(pt_share.y) - (4.0 * pt_share.x * pt_share.z);
-        let x1: f64 = (-pt_share.y + sq(delta)) / (2. * pt_share.x);
-        let x2: f64 = (-pt_share.y - sq(delta)) / (2. * pt_share.x);
+        let delta: f64 = sq(pt_sphare.y) - (4.0 * pt_sphare.x * pt_sphare.z);
+        let x1: f64 = (-pt_sphare.y + sq(delta)) / (2. * pt_sphare.x);
+        let x2: f64 = (-pt_sphare.y - sq(delta)) / (2. * pt_sphare.x);
 
         if delta < 0. || (x1 < 0. && x2 < 0.) || delta.is_nan() {
             return None;

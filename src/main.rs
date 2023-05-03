@@ -13,6 +13,7 @@ mod camera;
 mod intersections {
     pub mod plane;
     pub mod sphere;
+    pub mod triangle;
 }
 use intersections::plane::Plane;
 
