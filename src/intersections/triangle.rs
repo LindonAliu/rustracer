@@ -22,10 +22,13 @@ pub struct Triangle {
 }
 
 fn calcul_normal(intersection: Vector3D, a:Vector3D, b:Vector3D) -> Vector3D {
+    let diff_a = a - intersection;
+    let diff_b = b - intersection;
+
     let normal: Vector3D = Vector3D {
-        x: (a.y - intersection.y) * (b.z - intersection.z) - (a.z - intersection.z) * (b.y - intersection.y),
-        y: (a.z - intersection.z) * (b.x - intersection.x) - (a.x - intersection.x) * (b.z - intersection.z),
-        z: (a.x - intersection.x) * (b.y - intersection.y) - (a.x - intersection.y) * (b.x - intersection.x),
+        x: (diff_a.y) * (diff_b.z) - (diff_a.z) * (diff_b.y),
+        y: (diff_a.z) * (diff_b.x) - (diff_a.x) * (diff_b.z),
+        z: (diff_a.x) * (diff_b.y) - (diff_a.y) * (diff_b.x),
     };
     normal
 }
@@ -36,8 +39,9 @@ fn is_in_triangle(triangle: &Triangle, intersect: Vector3D, normal: Vector3D) ->
     let tmp2: Vector3D = calcul_normal(intersect, triangle.c, triangle.a);
     let beta = normal.dot(tmp2) / triangle.normal_sq;
     let gamma = 1. - alpha - beta;
+    let between_0_1 = (0.0..1.0);
 
-    0. <= beta && beta <= 1. && 0. <= alpha && alpha <= 1. && 0. <= gamma && gamma <= 1.
+    between_0_1.contains(&beta) && between_0_1.contains(&alpha) && between_0_1.contains(&gamma)
 }
 
 impl Shape for Triangle {

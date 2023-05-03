@@ -47,8 +47,8 @@ impl Shape for Sphere {
             z: sq(pt.x) + sq(pt.y) + sq(pt.z) - sq(self.radius),
         };
         let delta: f64 = sq(pt_sphere.y) - (4.0 * pt_sphere.x * pt_sphere.z);
-        let x1: f64 = (-pt_sphere.y + sq(delta)) / (2. * pt_sphere.x);
-        let x2: f64 = (-pt_sphere.y - sq(delta)) / (2. * pt_sphere.x);
+        let x1: f64 = (-pt_sphere.y + delta.sqrt()) / (2. * pt_sphere.x);
+        let x2: f64 = (-pt_sphere.y - delta.sqrt()) / (2. * pt_sphere.x);
 
         if delta < 0. || (x1 < 0. && x2 < 0.) || delta.is_nan() {
             return None;

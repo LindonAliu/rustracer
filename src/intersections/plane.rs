@@ -31,7 +31,7 @@ impl Shape for Plane {
             Intersection {
                 intersection_point: intersection_point,
                 normal: if divi > 0. {
-                    self.normal * -1.
+                    -self.normal
                 } else {
                     self.normal
                 },
