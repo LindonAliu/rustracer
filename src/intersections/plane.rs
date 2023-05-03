@@ -35,7 +35,7 @@ impl Shape for Plane {
                 } else {
                     self.normal
                 },
-                distance: ray.origin.dot(intersection_point),
+                distance: (ray.origin - intersection_point).length(),
                 material: self.material
             }
         )
