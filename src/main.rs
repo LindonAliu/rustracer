@@ -15,6 +15,10 @@ mod intersections {
     pub mod sphere;
     pub mod triangle;
     pub mod composite;
+    pub mod decorator {
+        pub mod translation;
+        pub mod scale;
+    }
 }
 use intersections::plane::Plane;
 
