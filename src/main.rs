@@ -10,10 +10,14 @@ mod vector3d;
 mod shape;
 mod material;
 mod camera;
+mod light;
 mod intersections {
     pub mod plane;
     pub mod sphere;
     pub mod triangle;
+}
+mod lights {
+    pub mod point_light;
 }
 use intersections::plane::Plane;
 
