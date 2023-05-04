@@ -9,8 +9,9 @@ use crate::intersection::{Intersection, Ray};
 use crate::material::Material;
 use crate::shape::Shape;
 use crate::vector3d::{Vector3D};
+use serde::{Deserialize, Serialize};
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Serialize, Deserialize)]
 pub struct Triangle {
     pub a: Vector3D,
     pub b: Vector3D,
@@ -44,6 +45,7 @@ fn is_in_triangle(triangle: &Triangle, intersect: Vector3D, normal: Vector3D) ->
     between_0_1.contains(&beta) && between_0_1.contains(&alpha) && between_0_1.contains(&gamma)
 }
 
+#[typetag::serde]
 impl Shape for Triangle {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let divi = ray.direction.dot(self.normal);

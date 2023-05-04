@@ -5,8 +5,10 @@
 // material
 //
 
+use serde::{Deserialize, Serialize};
+
 /// Contains the RGBA values of a color.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Color {
     pub r: u8,
     pub g: u8,
@@ -15,7 +17,7 @@ pub struct Color {
 }
 
 /// Contains the different materials that can be used.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub enum Material {
     /// Represents a color, with optional transparency.
     Color(Color),
