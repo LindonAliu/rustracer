@@ -18,6 +18,7 @@ mod intersections {
 }
 mod lights {
     pub mod point_light;
+    pub mod ambient_light;
 }
 use intersections::plane::Plane;
 
