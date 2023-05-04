@@ -17,6 +17,7 @@ mod intersections {
     pub mod composite;
     pub mod decorator {
         pub mod translation;
+        pub mod scale;
     }
 }
 use intersections::plane::Plane;
