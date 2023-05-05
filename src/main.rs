@@ -1,8 +1,8 @@
 //
 // EPITECH PROJECT, 2023
-// main
+// raytracer
 // File description:
-// FreeKOSOVO
+// main
 //
 
 mod intersection;
