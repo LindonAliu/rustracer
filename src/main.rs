@@ -10,6 +10,7 @@ mod vector3d;
 mod shape;
 mod material;
 mod camera;
+mod light;
 mod framebuffer;
 mod intersections {
     pub mod plane;
@@ -20,6 +21,10 @@ mod intersections {
         pub mod translation;
         pub mod scale;
     }
+}
+mod lights {
+    pub mod point_light;
+    pub mod ambient_light;
 }
 mod scene;
 use intersections::plane::Plane;
