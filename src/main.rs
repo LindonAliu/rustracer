@@ -43,25 +43,40 @@ fn main() {
 struct Model {
     _window: window::Id,
     _framebuffer: Framebuffer,
-    // _texture: wgpu::Texture,
 }
 
 fn model(app: &App) -> Model {
     let _window = app.new_window().view(view).build().unwrap();
     let _framebuffer = Framebuffer::new(1920, 1080);
-    // let _texture = wgpu::TextureBuilder::new()
-    //     .size([1920, 1080])
-    //     .format(wgpu::TextureFormat::Rgba8Unorm)
-    //     .usage(wgpu::TextureUsages::COPY_DST | wgpu::TextureUsages::TEXTURE_BINDING)
-    //     .build(app.main_window().device());
-    Model { _window, _framebuffer }
+    Model { _window, _framebuffer } 
 }
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {}
 
 fn view(app: &App, _model: &Model, frame: Frame) {
     let draw = app.draw();
+    let framebuffer = &_model._framebuffer;
+    let width = framebuffer.width;
+    let height = framebuffer.height;
 
-    draw.background().color(PLUM);
+    // draw.background().color(PLUM);
+
+    for x in 0..width {
+        for y in 0..height {
+            let color = framebuffer.get(x, y);
+            let x_window = x as f32 - (width as f32 / 2.0);
+            let y_window = y as f32 - (height as f32 / 2.0);
+
+            draw.rect()
+                .x_y(x_window, y_window)
+                .w_h(1.0, 1.0)
+                .color(rgba(
+                    color.r as f32 / 255.0,
+                    color.g as f32 / 255.0,
+                    color.b as f32 / 255.0,
+                    color.a as f32 / 255.0,
+                ));
+        }
+    }
     draw.to_frame(app, &frame).unwrap();
 }
