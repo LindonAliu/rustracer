@@ -35,48 +35,58 @@ use framebuffer::Framebuffer;
 use nannou::prelude::*;
 use nannou::image::ImageBuffer;
 use nannou::wgpu;
+use nannou::wgpu::Device;
 
 fn main() {
     nannou::app(model).update(update).run();
 }
 
 struct Model {
-    _window: window::Id,
-    _framebuffer: Framebuffer,
+    window: window::Id,
+    framebuffer: Framebuffer,
+    texture: wgpu::Texture,
 }
 
 fn model(app: &App) -> Model {
-    let _window = app.new_window().view(view).build().unwrap();
-    let _framebuffer = Framebuffer::new(1920, 1080);
-    Model { _window, _framebuffer } 
+    let width = 1920;
+    let height = 1080;
+    let window = app.new_window().size(width, height).view(view).build().unwrap();
+    let framebuffer = Framebuffer::new(width as usize, height as usize);
+    let texture = wgpu::TextureBuilder::new()
+        .size([width, height])
+        .format(wgpu::TextureFormat::Rgba8Unorm)
+        .build(app.main_window().device());
+    Model { window, framebuffer, texture } 
 }
 
-fn update(_app: &App, _model: &mut Model, _update: Update) {}
+fn update(_app: &App, model: &mut Model, _update: Update) {
+}
 
-fn view(app: &App, _model: &Model, frame: Frame) {
-    let draw = app.draw();
-    let framebuffer = &_model._framebuffer;
-    let width = framebuffer.width;
-    let height = framebuffer.height;
-
-    // draw.background().color(PLUM);
-
-    for x in 0..width {
-        for y in 0..height {
-            let color = framebuffer.get(x, y);
-            let x_window = x as f32 - (width as f32 / 2.0);
-            let y_window = y as f32 - (height as f32 / 2.0);
-
-            draw.rect()
-                .x_y(x_window, y_window)
-                .w_h(1.0, 1.0)
-                .color(rgba(
-                    color.r as f32 / 255.0,
-                    color.g as f32 / 255.0,
-                    color.b as f32 / 255.0,
-                    color.a as f32 / 255.0,
-                ));
-        }
+fn colors_to_u8_array(colors: &Vec<Color>) -> Vec<u8> {
+    let mut u8_colors = Vec::new();
+    for color in colors {
+        u8_colors.push(color.r);
+        u8_colors.push(color.g);
+        u8_colors.push(color.b);
+        u8_colors.push(color.a);
     }
+    u8_colors
+}
+
+fn view(app: &App, model: &Model, frame: Frame) {
+    let draw = app.draw();
+    let framebuffer = &model.framebuffer;
+    let texture = &model.texture;
+
+    texture.upload_data(
+        app.main_window().device(),
+        &mut *frame.command_encoder(),
+        &colors_to_u8_array(&framebuffer.colors),
+    );
+
+    draw.texture(texture)
+        .x_y(0.0, 0.0)
+        .w_h(framebuffer.width as f32, framebuffer.height as f32);
+
     draw.to_frame(app, &frame).unwrap();
 }
