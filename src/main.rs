@@ -1,8 +1,8 @@
 //
 // EPITECH PROJECT, 2023
-// raytracer
-// File description:
 // main
+// File description:
+// FreeKOSOVO
 //
 
 mod intersection;
@@ -30,25 +30,38 @@ use crate::intersection::Ray;
 use material::Material;
 use material::Color;
 use scene::Scene;
+use framebuffer::Framebuffer;
+
+use nannou::prelude::*;
+use nannou::image::ImageBuffer;
+use nannou::wgpu;
 
 fn main() {
-    let mut vector3d = Vector3D {x: 3.0, y: 4.0, z: 5.0};
-    let second_vector3d = Vector3D {x: 1.0, y: 1.0, z: 1.0};
-    vector3d += second_vector3d;
-    vector3d -= second_vector3d;
+    nannou::app(model).update(update).run();
+}
 
-    let plan = Plane {
-        pos: Point3D {x: 1.0, y:2.0, z: 3.0},
-        normal: Vector3D {x: 6.0, y: 9.0, z: 12.0},
-        material: Material::Color(Color {r: 10, g: 200, b: 250, a: 255})
-    };
+struct Model {
+    _window: window::Id,
+    _framebuffer: Framebuffer,
+    // _texture: wgpu::Texture,
+}
 
-    let scene: Scene = Scene {shape: Box::new(plan)};
+fn model(app: &App) -> Model {
+    let _window = app.new_window().view(view).build().unwrap();
+    let _framebuffer = Framebuffer::new(1920, 1080);
+    // let _texture = wgpu::TextureBuilder::new()
+    //     .size([1920, 1080])
+    //     .format(wgpu::TextureFormat::Rgba8Unorm)
+    //     .usage(wgpu::TextureUsages::COPY_DST | wgpu::TextureUsages::TEXTURE_BINDING)
+    //     .build(app.main_window().device());
+    Model { _window, _framebuffer }
+}
 
-    let ray = Ray {
-        origin: Point3D {x: 1.0, y:2.0, z: 3.0},
-        direction: Vector3D {x: 6.0, y: 9.0, z: 12.0},
-    };
+fn update(_app: &App, _model: &mut Model, _update: Update) {}
 
-    scene.shape.intersect(&ray);
+fn view(app: &App, _model: &Model, frame: Frame) {
+    let draw = app.draw();
+
+    draw.background().color(PLUM);
+    draw.to_frame(app, &frame).unwrap();
 }
