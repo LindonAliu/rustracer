@@ -11,7 +11,6 @@ mod shape;
 mod material;
 mod camera;
 mod light;
-mod framebuffer;
 mod intersections {
     pub mod plane;
     pub mod sphere;
@@ -36,24 +35,45 @@ use material::Material;
 use material::Color;
 use scene::Scene;
 
+use nannou::prelude::*;
+use nannou::image::ImageBuffer;
+use nannou::wgpu;
+use nannou::wgpu::Device;
+use nannou::image::RgbImage;
+use nannou::image::DynamicImage; 
+use nannou::image::DynamicImage::ImageRgb8;
+
 fn main() {
-    let mut vector3d = Vector3D {x: 3.0, y: 4.0, z: 5.0};
-    let second_vector3d = Vector3D {x: 1.0, y: 1.0, z: 1.0};
-    vector3d += second_vector3d;
-    vector3d -= second_vector3d;
+    nannou::app(model).update(update).run();
+}
 
-    let plan = Plane {
-        pos: Point3D {x: 1.0, y:2.0, z: 3.0},
-        normal: Vector3D {x: 6.0, y: 9.0, z: 12.0},
-        material: Material::Color(Color {r: 10, g: 200, b: 250, a: 255})
-    };
+struct Model {
+    window: window::Id,
+    framebuffer: DynamicImage,
+    sizes: (u32, u32),
+}
 
-    let scene: Scene = Scene {shape: Box::new(plan)};
+fn model(app: &App) -> Model {
+    let sizes = (1920, 1080);
+    let window = app.new_window().size(sizes.0, sizes.1).view(view).build().unwrap();
+    let framebuffer = ImageRgb8(ImageBuffer::new(sizes.0, sizes.1));
 
-    let ray = Ray {
-        origin: Point3D {x: 1.0, y:2.0, z: 3.0},
-        direction: Vector3D {x: 6.0, y: 9.0, z: 12.0},
-    };
+    Model { sizes, window, framebuffer }
+}
 
-    scene.shape.intersect(&ray);
+fn update(_app: &App, model: &mut Model, _update: Update) {
+}
+
+fn view(app: &App, model: &Model, frame: Frame) {
+    let draw = app.draw();
+    let texture = wgpu::Texture::from_image(
+        app,
+        &model.framebuffer,
+    );
+
+    draw.texture(&texture)
+        .x_y(0.0, 0.0)
+        .w_h(model.sizes.0 as f32, model.sizes.1 as f32);
+
+    draw.to_frame(app, &frame).unwrap();
 }
