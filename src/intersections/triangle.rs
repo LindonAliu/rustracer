@@ -39,7 +39,7 @@ fn is_in_triangle(triangle: &Triangle, intersect: Vector3D, normal: Vector3D) ->
     let tmp2: Vector3D = calcul_normal(intersect, triangle.c, triangle.a);
     let beta = normal.dot(tmp2) / triangle.normal_sq;
     let gamma = 1. - alpha - beta;
-    let between_0_1 = (0.0..1.0);
+    let between_0_1 = 0.0..1.0;
 
     between_0_1.contains(&beta) && between_0_1.contains(&alpha) && between_0_1.contains(&gamma)
 }

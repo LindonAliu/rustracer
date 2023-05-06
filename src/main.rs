@@ -26,20 +26,10 @@ mod lights {
     pub mod ambient_light;
 }
 mod scene;
-use intersections::plane::Plane;
-
-use vector3d::Vector3D;
-use vector3d::Point3D;
-use crate::intersection::Ray;
-use material::Material;
-use material::Color;
-use scene::Scene;
 
 use nannou::prelude::*;
 use nannou::image::ImageBuffer;
 use nannou::wgpu;
-use nannou::wgpu::Device;
-use nannou::image::RgbImage;
 use nannou::image::DynamicImage; 
 use nannou::image::DynamicImage::ImageRgb8;
 
@@ -61,7 +51,7 @@ fn model(app: &App) -> Model {
     Model { sizes, window, framebuffer }
 }
 
-fn update(_app: &App, model: &mut Model, _update: Update) {
+fn update(_app: &App, _model: &mut Model, _update: Update) {
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {

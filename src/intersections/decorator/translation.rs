@@ -6,8 +6,7 @@
 //
 
 use crate::intersection::{Intersection, Ray};
-use crate::material::Material;
-use crate::vector3d::{Point3D, Vector3D};
+use crate::vector3d::{Vector3D};
 use crate::shape::Shape;
 
 pub struct Translation {
