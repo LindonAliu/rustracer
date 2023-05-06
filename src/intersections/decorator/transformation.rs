@@ -12,8 +12,8 @@ use crate::vector3d::{Vector3D};
 use crate::shape::Shape;
 
 pub struct Transformation {
-    [[f64; 4]; 4]
-    pub transformation: Vector3D,
+    pub matrix: [[f64; 4]; 4],
+    pub wrapped: Box<dyn Shape>,
 }
 
 impl Add for Transformation {
@@ -23,10 +23,13 @@ impl Add for Transformation {
         let mut result = [[0.0; 4]; 4];
         for i in 0..4 {
             for j in 0..4 {
-                result[i][j] = self.0[i][j] + other.0[i][j];
+                result[i][j] = self.matrix[i][j] + other.matrix[i][j];
             }
         }
-        Transformation(result)
+        Transformation {
+            matrix: result,
+            wrapped: self.wrapped,
+        }
     }
 }
 
@@ -44,11 +47,14 @@ impl Mul for Transformation {
         for i in 0..4 {
             for j in 0..4 {
                 for k in 0..4 {
-                    result[i][j] += self.0[i][k] * other.0[k][j];
+                    result[i][j] += self.matrix[i][k] * other.matrix[k][j];
                 }
             }
         }
-        Transformation(result)
+        Transformation {
+            matrix: result,
+            wrapped: self.wrapped,
+        }
     }
 }
 
@@ -59,7 +65,7 @@ impl Mul<Vector3D> for Transformation {
         let mut result = [0.0; 4];
         for i in 0..4 {
             for j in 0..4 {
-                result[i] += self.0[i][j] * other[j];
+                result[i] += self.matrix[i][j] * other[j];
             }
         }
         Vector3D {
@@ -74,5 +80,10 @@ impl Mul<Vector3D> for Transformation {
 impl MulAssign for Transformation {
     fn mul_assign(&mut self, other: Transformation) {
         *self = *self * other;
+    }
+}
+
+impl Shape for Transformation {
+    fn intersect(&self, ray: &Ray) -> Option<Intersection> {
     }
 }
