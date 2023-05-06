@@ -13,6 +13,7 @@ use crate::shape::Shape;
 
 pub struct Transformation {
     [[f64; 4]; 4]
+    pub transformation: Vector3D,
 }
 
 impl Add for Transformation {
@@ -26,6 +27,12 @@ impl Add for Transformation {
             }
         }
         Transformation(result)
+    }
+}
+
+impl AddAssign for Transformation {
+    fn add_assign(&mut self, other: Transformation) {
+        *self = *self + other;
     }
 }
 
@@ -61,5 +68,11 @@ impl Mul<Vector3D> for Transformation {
             y: result[2],
             z: result[3],
         }
+    }
+}
+
+impl MulAssign for Transformation {
+    fn mul_assign(&mut self, other: Transformation) {
+        *self = *self * other;
     }
 }
