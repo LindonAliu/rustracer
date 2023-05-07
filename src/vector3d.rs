@@ -12,11 +12,11 @@ pub type Point3D = Vector3D;
 
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Vector3D {
-    #[serde(skip, default = "default_w")]
-    pub w: f64,
     pub x: f64,
     pub y: f64,
     pub z: f64,
+    #[serde(skip, default = "default_w")]
+    pub w: f64,
 }
 
 fn default_w() -> f64 {
@@ -25,11 +25,11 @@ fn default_w() -> f64 {
 
 impl Vector3D {
     pub fn length(&self) -> f64 {
-        (self.w * self.w + self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
+        (self.x * self.x + self.y * self.y + self.z * self.z + self.w * self.w).sqrt()
     }
 
     pub fn dot(&self, other: Vector3D) -> f64 {
-        self.w * other.w + self.x * other.x + self.y * other.y + self.z * other.z
+        self.x * other.x + self.y * other.y + self.z * other.z + self.w * other.w
     }
 }
 
@@ -38,10 +38,10 @@ impl std::ops::Index<usize> for Vector3D {
 
     fn index(&self, index: usize) -> &f64 {
         match index {
-            0 => &self.w,
-            1 => &self.x,
-            2 => &self.y,
-            3 => &self.z,
+            0 => &self.x,
+            1 => &self.y,
+            2 => &self.z,
+            3 => &self.w,
             _ => panic!("Index out of bounds"),
         }
     }
@@ -52,20 +52,20 @@ impl Add for Vector3D {
 
     fn add(self, other: Vector3D) -> Vector3D {
         Vector3D {
-            w: self.w + other.w,
             x: self.x + other.x,
             y: self.y + other.y,
             z: self.z + other.z,
+            w: self.w + other.w,
         }
     }
 }
 
 impl AddAssign for Vector3D {
     fn add_assign(&mut self, other: Vector3D) {
-        self.w += other.w;
         self.x += other.x;
         self.y += other.y;
         self.z += other.z;
+        self.w += other.w;
     }
 }
 
@@ -74,20 +74,20 @@ impl Sub for Vector3D {
 
     fn sub(self, other: Vector3D) -> Vector3D {
         Vector3D {
-            w: self.w - other.w,
             x: self.x - other.x,
             y: self.y - other.y,
             z: self.z - other.z,
+            w: self.w - other.w,
         }
     }
 }
 
 impl SubAssign for Vector3D {
     fn sub_assign(&mut self, other: Vector3D) {
-        self.w -= other.w;
         self.x -= other.x;
         self.y -= other.y;
         self.z -= other.z;
+        self.w -= other.w;
     }
 }
 
@@ -96,20 +96,20 @@ impl Mul<f64> for Vector3D {
 
     fn mul(self, other: f64) -> Vector3D {
         Vector3D {
-            w: self.w * other,
             x: self.x * other,
             y: self.y * other,
             z: self.z * other,
+            w: self.w * other,
         }
     }
 }
 
 impl MulAssign<f64> for Vector3D {
     fn mul_assign(&mut self, other: f64) {
-        self.w *= other;
         self.x *= other;
         self.y *= other;
         self.z *= other;
+        self.w *= other;
     }
 }
 
@@ -118,20 +118,20 @@ impl Mul<Vector3D> for Vector3D {
 
     fn mul(self, other: Vector3D) -> Vector3D {
         Vector3D {
-            w: self.w * other.w,
             x: self.x * other.x,
             y: self.y * other.y,
             z: self.z * other.z,
+            w: self.w * other.w,
         }
     }
 }
 
 impl MulAssign<Vector3D> for Vector3D {
     fn mul_assign(&mut self, other: Vector3D) {
-        self.w *= other.w;
         self.x *= other.x;
         self.y *= other.y;
         self.z *= other.z;
+        self.w *= other.w;
     }
 }
 
@@ -140,20 +140,20 @@ impl Div<f64> for Vector3D {
 
     fn div(self, other: f64) -> Vector3D {
         Vector3D {
-            w: self.w / other,
             x: self.x / other,
             y: self.y / other,
             z: self.z / other,
+            w: self.w / other,
         }
     }
 }
 
 impl DivAssign<f64> for Vector3D {
     fn div_assign(&mut self, other: f64) {
-        self.w /= other;
         self.x /= other;
         self.y /= other;
         self.z /= other;
+        self.w /= other;
     }
 }
 
@@ -162,20 +162,20 @@ impl Div<Vector3D> for Vector3D {
 
     fn div(self, other: Vector3D) -> Vector3D {
         Vector3D {
-            w: self.w / other.w,
             x: self.x / other.x,
             y: self.y / other.y,
             z: self.z / other.z,
+            w: self.w / other.w,
         }
     }
 }
 
 impl DivAssign<Vector3D> for Vector3D {
     fn div_assign(&mut self, other: Vector3D) {
-        self.w /= other.w;
         self.x /= other.x;
         self.y /= other.y;
         self.z /= other.z;
+        self.w /= other.w;
     }
 }
 
@@ -184,10 +184,10 @@ impl Neg for Vector3D {
 
     fn neg(self) -> Vector3D {
         Vector3D {
-            w: -self.w,
             x: -self.x,
             y: -self.y,
             z: -self.z,
+            w: -self.w,
         }
     }
 }

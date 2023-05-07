@@ -104,10 +104,10 @@ impl Mul for Matrix {
 impl From<Vector3D> for Matrix {
     fn from(vector: Vector3D) -> Matrix {
         let mut result = Matrix::new(4, 1);
-        result[(0, 0)] = vector.w;
-        result[(1, 0)] = vector.x;
-        result[(2, 0)] = vector.y;
-        result[(3, 0)] = vector.z;
+        result[(0, 0)] = vector.x;
+        result[(1, 0)] = vector.y;
+        result[(2, 0)] = vector.z;
+        result[(3, 0)] = vector.w;
         result
     }
 }
@@ -116,10 +116,10 @@ impl From<Matrix> for Vector3D {
     fn from(matrix: Matrix) -> Vector3D {
         assert!(matrix.rows == 4 && matrix.cols == 1);
         Vector3D {
-            w: matrix[(0, 0)],
-            x: matrix[(1, 0)],
-            y: matrix[(2, 0)],
-            z: matrix[(3, 0)],
+            x: matrix[(0, 0)],
+            y: matrix[(1, 0)],
+            z: matrix[(2, 0)],
+            w: matrix[(3, 0)],
         }
     }
 }
