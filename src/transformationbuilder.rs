@@ -23,7 +23,7 @@ impl TransformationBuilder {
         matrix[(0, 3)] = x;
         matrix[(1, 3)] = y;
         matrix[(2, 3)] = z;
-        self.matrix = matrix * self.matrix;
+        self.matrix = self.matrix * matrix;
         self
     }
 
@@ -32,7 +32,7 @@ impl TransformationBuilder {
         matrix[(0, 0)] = x;
         matrix[(1, 1)] = y;
         matrix[(2, 2)] = z;
-        self.matrix = matrix * self.matrix;
+        self.matrix = self.matrix * matrix;
         self
     }
 
@@ -42,7 +42,7 @@ impl TransformationBuilder {
         matrix[(1, 2)] = -radians.sin();
         matrix[(2, 1)] = radians.sin();
         matrix[(2, 2)] = radians.cos();
-        self.matrix = matrix * self.matrix;
+        self.matrix = self.matrix * matrix;
         self
     }
 
@@ -52,7 +52,7 @@ impl TransformationBuilder {
         matrix[(0, 2)] = radians.sin();
         matrix[(2, 0)] = -radians.sin();
         matrix[(2, 2)] = radians.cos();
-        self.matrix = matrix * self.matrix;
+        self.matrix = self.matrix * matrix;
         self
     }
 
@@ -62,7 +62,7 @@ impl TransformationBuilder {
         matrix[(0, 1)] = -radians.sin();
         matrix[(1, 0)] = radians.sin();
         matrix[(1, 1)] = radians.cos();
-        self.matrix = matrix * self.matrix;
+        self.matrix = self.matrix * matrix;
         self
     }
 
