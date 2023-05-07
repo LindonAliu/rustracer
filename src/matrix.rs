@@ -161,10 +161,10 @@ impl Matrix {
     }
 
     fn transposed(&self) -> Matrix {
-        let mut transposed = Matrix::new(self.rows, self.cols);
-        for i in 0..self.rows {
-            for j in 0..self.cols {
-                transposed[(i, j)] = self[(j, i)];
+        let mut transposed = Matrix::new(self.cols, self.rows);
+        for row in 0..self.rows {
+            for col in 0..self.cols {
+                transposed[(col, row)] = self[(row, col)];
             }
         }
         transposed
