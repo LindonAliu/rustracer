@@ -81,22 +81,36 @@ impl Mul for Matrix {
     }
 }
 
+impl From<Vector3D> for Matrix {
+    fn from(vector: Vector3D) -> Matrix {
+        let mut result = Matrix::new(4, 1);
+        result[(0, 0)] = vector.w;
+        result[(1, 0)] = vector.x;
+        result[(2, 0)] = vector.y;
+        result[(3, 0)] = vector.z;
+        result
+    }
+}
+
+impl From<Matrix> for Vector3D {
+    fn from(matrix: Matrix) -> Vector3D {
+        assert!(matrix.rows == 4 && matrix.cols == 1);
+        Vector3D {
+            w: matrix[(0, 0)],
+            x: matrix[(1, 0)],
+            y: matrix[(2, 0)],
+            z: matrix[(3, 0)],
+        }
+    }
+}
+
 impl Mul<Vector3D> for Matrix {
     type Output = Vector3D;
 
     fn mul(self, other: Vector3D) -> Vector3D {
-        let mut result = [0.0; 4];
-        for i in 0..4 {
-            for j in 0..4 {
-                result[i] += self[(i, j)] * other[j];
-            }
-        }
-        Vector3D {
-            w: result[0],
-            x: result[1],
-            y: result[2],
-            z: result[3],
-        }
+        let mut tmp_matrix = Matrix::from(other) * self;
+        let mut result = Vector3D::from(tmp_matrix);
+        return result;
     }
 }
 
