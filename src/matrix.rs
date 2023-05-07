@@ -23,7 +23,7 @@ impl Matrix {
         }
     }
 
-    fn identity(size: usize) -> Matrix {
+    pub fn identity(size: usize) -> Matrix {
         let mut result = Matrix::new(size, size);
         for i in 0..size {
             result[(i, i)] = 1.0;
