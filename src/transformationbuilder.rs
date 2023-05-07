@@ -8,7 +8,7 @@
 use crate::matrix::Matrix;
 
 pub struct TransformationBuilder {
-    pub matrix: Matrix,
+    matrix: Matrix,
 }
 
 impl TransformationBuilder {
@@ -67,6 +67,6 @@ impl TransformationBuilder {
     }
 
     pub fn get_matrix(self) -> Matrix {
-        self.matrix 
+        self.matrix
     }
 }
