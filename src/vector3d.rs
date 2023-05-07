@@ -25,11 +25,11 @@ fn default_w() -> f64 {
 
 impl Vector3D {
     pub fn length(&self) -> f64 {
-        (self.x * self.x + self.y * self.y + self.z * self.z + self.w * self.w).sqrt()
+        (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
     }
 
     pub fn dot(&self, other: Vector3D) -> f64 {
-        self.x * other.x + self.y * other.y + self.z * other.z + self.w * other.w
+        self.x * other.x + self.y * other.y + self.z * other.z
     }
 }
 

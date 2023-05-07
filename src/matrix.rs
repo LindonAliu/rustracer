@@ -107,7 +107,7 @@ impl From<Vector3D> for Matrix {
         result[(0, 0)] = vector.x;
         result[(1, 0)] = vector.y;
         result[(2, 0)] = vector.z;
-        result[(3, 0)] = vector.w;
+        result[(3, 0)] = 1.0;
         result
     }
 }
