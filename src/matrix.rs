@@ -5,7 +5,7 @@
 // FreeKOSOVO
 //
 
-use std::ops::{Add, AddAssign, Mul, MulAssign, Div};
+use std::ops::{Add, AddAssign, Mul, Div};
 use crate::vector3d::Vector3D;
 
 pub struct Matrix {
@@ -89,12 +89,6 @@ impl Mul for Matrix {
     }
 }
 
-impl MulAssign for Matrix {
-    fn mul_assign(&mut self, other: Matrix) {
-        *self = *self * other;
-    }
-}
-
 impl From<Vector3D> for Matrix {
     fn from(vector: Vector3D) -> Matrix {
         let mut result = Matrix::new(4, 1);
@@ -122,8 +116,8 @@ impl Mul<Vector3D> for Matrix {
     type Output = Vector3D;
 
     fn mul(self, other: Vector3D) -> Vector3D {
-        let mut tmp_matrix = Matrix::from(other) * self;
-        let mut result = Vector3D::from(tmp_matrix);
+        let tmp_matrix = Matrix::from(other) * self;
+        let result = Vector3D::from(tmp_matrix);
         return result;
     }
 }
