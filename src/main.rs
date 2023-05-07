@@ -5,6 +5,7 @@
 // main
 //
 
+mod transformationbuilder;
 mod matrix;
 mod intersection;
 mod vector3d;

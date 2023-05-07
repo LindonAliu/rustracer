@@ -22,6 +22,14 @@ impl Matrix {
             cols,
         }
     }
+
+    fn identity(size: usize) -> Matrix {
+        let mut result = Matrix::new(size, size);
+        for i in 0..size {
+            result[(i, i)] = 1.0;
+        }
+        result
+    }
 }
 
 impl std::ops::Index<(usize, usize)> for Matrix {
