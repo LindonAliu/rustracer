@@ -18,12 +18,11 @@ impl TransformationBuilder {
         }
     }
 
-    pub fn translation(mut self, x: f64, y: f64, z: f64, w: f64) -> TransformationBuilder {
+    pub fn translation(mut self, x: f64, y: f64, z: f64) -> TransformationBuilder {
         let mut matrix = Matrix::identity(4);
         matrix[(0, 3)] = x;
         matrix[(1, 3)] = y;
         matrix[(2, 3)] = z;
-        matrix[(3, 3)] = w;
         self.matrix *= matrix;
         self
     }
