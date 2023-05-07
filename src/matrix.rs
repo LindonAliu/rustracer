@@ -67,6 +67,9 @@ impl Mul for Matrix {
 
     fn mul(self, other: Matrix) -> Matrix {
         let mut result = Matrix::new(self.rows, other.cols);
+
+        assert_eq!(self.cols, other.rows);
+
         for i in 0..self.rows {
             for j in 0..other.cols {
                 for k in 0..self.cols {
