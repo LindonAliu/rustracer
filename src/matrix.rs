@@ -46,6 +46,18 @@ impl std::ops::IndexMut<(usize, usize)> for Matrix {
     }
 }
 
+impl From<[f64; 16]> for Matrix {
+    fn from(array: [f64; 16]) -> Matrix {
+        let mut result = Matrix::new(4, 4);
+        for i in 0..4 {
+            for j in 0..4 {
+                result[(i, j)] = array[i * 4 + j];
+            }
+        }
+        result
+    }
+}
+
 impl Add for Matrix {
     type Output = Matrix;
 
@@ -178,7 +190,7 @@ impl Matrix {
         transposed
     }
 
-    fn inverse(&self) -> Matrix {
+    pub fn inverse(&self) -> Matrix {
         let mut inverse = Matrix::new(self.rows, self.cols);
         let det = self.determinant();
         
