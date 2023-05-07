@@ -6,10 +6,11 @@
 //
 
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
+use serde::{Deserialize, Serialize};
 
 pub type Point3D = Vector3D;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Vector3D {
     pub x: f64,
     pub y: f64,

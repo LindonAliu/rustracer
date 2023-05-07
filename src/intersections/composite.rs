@@ -7,11 +7,14 @@
 
 use crate::intersection::{Intersection, Ray};
 use crate::shape::Shape;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 pub struct CompositeShape {
     pub shapes: Vec<Box<dyn Shape>>
 }
 
+#[typetag::serde]
 impl Shape for CompositeShape {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let mut closest: Option<Intersection> = None;

@@ -9,14 +9,16 @@ use crate::intersection::{Intersection, Ray};
 use crate::material::Material;
 use crate::vector3d::{Point3D, Vector3D};
 use crate::shape::Shape;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize)]
 pub struct Plane {
     pub pos: Point3D,
     pub normal: Vector3D,
     pub material: Material
 }
 
+#[typetag::serde]
 impl Shape for Plane {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let d: f64 = -self.pos.dot(self.normal);

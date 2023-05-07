@@ -9,8 +9,9 @@ use crate::intersection::{Intersection, Ray};
 use crate::material::Material;
 use crate::shape::Shape;
 use crate::vector3d::{Point3D, Vector3D};
+use serde::{Deserialize, Serialize};
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Serialize, Deserialize)]
 pub struct Sphere {
     pub center: Point3D,
     pub radius: f64,
@@ -38,6 +39,7 @@ fn sphere_calcul_intersect(sphere: &Sphere, ray: &Ray, x: f64) -> Option<Interse
     )
 }
 
+#[typetag::serde]
 impl Shape for Sphere {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let pt: Vector3D = ray.origin - self.center;
