@@ -27,6 +27,20 @@ impl Vector3D {
     }
 }
 
+impl std::ops::Index<usize> for Vector3D {
+    type Output = f64;
+
+    fn index(&self, index: usize) -> &f64 {
+        match index {
+            0 => &self.w,
+            1 => &self.x,
+            2 => &self.y,
+            3 => &self.z,
+            _ => panic!("Index out of bounds"),
+        }
+    }
+}
+
 impl Add for Vector3D {
     type Output = Vector3D;
 
