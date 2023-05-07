@@ -8,23 +8,23 @@
 use crate::intersection::{Intersection, Ray};
 use crate::material::Material;
 use crate::shape::Shape;
-use crate::vector3d::{Vector3D};
+use crate::vector3d::{Vector3D, Point3D};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Serialize, Deserialize)]
 struct SerTriangle {
-    a: Vector3D,
-    b: Vector3D,
-    c: Vector3D,
+    a: Point3D,
+    b: Point3D,
+    c: Point3D,
     material: Material
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(from = "SerTriangle")]
 pub struct Triangle {
-    pub a: Vector3D,
-    pub b: Vector3D,
-    pub c: Vector3D,
+    pub a: Point3D,
+    pub b: Point3D,
+    pub c: Point3D,
 
     pub normal: Vector3D,
     pub d: f64,
