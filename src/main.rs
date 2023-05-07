@@ -33,6 +33,8 @@ use nannou::wgpu;
 use nannou::image::DynamicImage; 
 use nannou::image::DynamicImage::ImageRgb8;
 
+use crate::scene::Scene;
+
 fn main() {
     if std::env::args().len() != 2 {
         println!("Usage: ./raytracer <scene.json>");

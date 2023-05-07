@@ -13,7 +13,12 @@ pub struct Color {
     pub r: u8,
     pub g: u8,
     pub b: u8,
+    #[serde(default = "default_a")]
     pub a: u8,
+}
+
+fn default_a() -> u8 {
+    255
 }
 
 /// Contains the different materials that can be used.
