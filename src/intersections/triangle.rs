@@ -11,15 +11,43 @@ use crate::shape::Shape;
 use crate::vector3d::{Vector3D};
 use serde::{Deserialize, Serialize};
 
+#[derive(Clone, Copy, Serialize, Deserialize)]
+struct SerTriangle {
+    a: Vector3D,
+    b: Vector3D,
+    c: Vector3D,
+    material: Material
+}
+
 #[derive(Serialize, Deserialize)]
+#[serde(from = "SerTriangle")]
 pub struct Triangle {
     pub a: Vector3D,
     pub b: Vector3D,
     pub c: Vector3D,
+
     pub normal: Vector3D,
     pub d: f64,
     pub normal_sq: f64,
+
     pub material: Material
+}
+
+impl From<SerTriangle> for Triangle {
+    fn from(triangle: SerTriangle) -> Self {
+        let normal = calcul_normal(triangle.a, triangle.b, triangle.c);
+        let d = -triangle.a.dot(normal);
+        let normal_sq = normal.dot(normal);
+        Triangle {
+            a: triangle.a,
+            b: triangle.b,
+            c: triangle.c,
+            normal,
+            d,
+            normal_sq,
+            material: triangle.material
+        }
+    }
 }
 
 fn calcul_normal(intersection: Vector3D, a:Vector3D, b:Vector3D) -> Vector3D {
