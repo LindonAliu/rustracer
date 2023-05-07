@@ -5,6 +5,7 @@
 // main
 //
 
+mod matrix;
 mod intersection;
 mod vector3d;
 mod shape;
@@ -19,6 +20,7 @@ mod intersections {
     pub mod decorator {
         pub mod translation;
         pub mod scale;
+        pub mod transformation;
     }
 }
 mod lights {
