@@ -21,6 +21,7 @@ mod intersections {
     pub mod decorator {
         pub mod translation;
         pub mod scale;
+        pub mod rotation;
         pub mod transformation;
     }
 }
