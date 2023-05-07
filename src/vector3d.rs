@@ -12,10 +12,15 @@ pub type Point3D = Vector3D;
 
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Vector3D {
+    #[serde(skip, default = "default_w")]
     pub w: f64,
     pub x: f64,
     pub y: f64,
     pub z: f64,
+}
+
+fn default_w() -> f64 {
+    1.0
 }
 
 impl Vector3D {
