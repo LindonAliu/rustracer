@@ -6,14 +6,17 @@
 //
 
 use crate::intersection::{Intersection, Ray};
-use crate::vector3d::{Vector3D};
+use crate::vector3d::Vector3D;
 use crate::shape::Shape;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 pub struct Translation {
     pub wrapped: Box<dyn Shape>,
     pub translation: Vector3D,
 }
 
+#[typetag::serde]
 impl Shape for Translation {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let translated_ray = Ray {

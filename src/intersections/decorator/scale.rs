@@ -6,14 +6,17 @@
 //
 
 use crate::intersection::{Intersection, Ray};
-use crate::vector3d::{Vector3D};
+use crate::vector3d::Vector3D;
 use crate::shape::Shape;
+use serde::{Deserialize, Serialize};
 
+#[derive(Serialize, Deserialize)]
 pub struct Scale {
     pub wrapped: Box<dyn Shape>,
     pub scale: Vector3D,
 }
 
+#[typetag::serde]
 impl Shape for Scale {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let scaled_ray = Ray {
