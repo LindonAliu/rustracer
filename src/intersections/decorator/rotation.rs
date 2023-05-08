@@ -7,11 +7,12 @@
 
 use crate::intersections::decorator::transformation::Transformation;
 use crate::transformationbuilder::TransformationBuilder;
+use crate::intersection::{Intersection, Ray};
 use crate::vector3d::Point3D;
 use crate::shape::Shape;
-use serde::{Deserialize};
+use serde::{Serialize, Deserialize};
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SerRotation {
     #[serde(default)]
     pub angle_x: f64,
@@ -23,7 +24,7 @@ pub struct SerRotation {
     pub wrapped: Box<dyn Shape>,
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 struct Rotation(Transformation);
 
 impl From<SerRotation> for Rotation {
@@ -41,5 +42,12 @@ impl From<SerRotation> for Rotation {
             reverse_transformation,
             wrapped: other.wrapped,
         })
+    }
+}
+
+#[typetag::serde]
+impl Shape for Rotation {
+    fn intersect(&self, ray: &Ray) -> Option<Intersection> {
+        self.0.intersect(ray)
     }
 }
