@@ -32,7 +32,7 @@ pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
                 Some(intersection) => {
                     let color: Rgb<u8> =
                         match intersection.material {
-                            Material::Color(Color{r, g, b, a}) => {
+                            Material::Color(Color{r, g, b, ..}) => {
                                 [r, g, b].into()
                             },
                             _  => {
