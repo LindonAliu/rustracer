@@ -5,7 +5,7 @@
 // vector 3d type
 //
 
-use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
+use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg, Index, IndexMut};
 use serde::{Deserialize, Serialize};
 
 pub type Point3D = Vector3D;
@@ -33,7 +33,7 @@ impl Vector3D {
     }
 }
 
-impl std::ops::Index<usize> for Vector3D {
+impl Index<usize> for Vector3D {
     type Output = f64;
 
     fn index(&self, index: usize) -> &f64 {
@@ -42,6 +42,18 @@ impl std::ops::Index<usize> for Vector3D {
             1 => &self.y,
             2 => &self.z,
             3 => &self.w,
+            _ => panic!("Index out of bounds"),
+        }
+    }
+}
+
+impl IndexMut<usize> for Vector3D {
+    fn index_mut(&mut self, index: usize) -> &mut f64 {
+        match index {
+            0 => &mut self.x,
+            1 => &mut self.y,
+            2 => &mut self.z,
+            3 => &mut self.w,
             _ => panic!("Index out of bounds"),
         }
     }
