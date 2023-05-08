@@ -20,7 +20,7 @@ pub struct Ambient {
 
 #[typetag::serde]
 impl Light for Ambient {
-    fn light(&self, _intersection: &Intersection, color: &Color, shape: &dyn Shape) -> Color {
+    fn light(&self, _intersection: &Intersection, color: &Color, _shape: &dyn Shape) -> Color {
         let multiplier: f64 = self.multiplier;
 
         Color {
