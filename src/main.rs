@@ -25,10 +25,6 @@ mod intersections {
         pub mod transformation;
     }
 }
-mod lights {
-    pub mod point_light;
-    pub mod ambient_light;
-}
 mod scene;
 
 use nannou::prelude::*;
