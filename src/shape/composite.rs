@@ -10,12 +10,12 @@ use crate::shape::Shape;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct CompositeShape {
+pub struct Composite {
     pub shapes: Vec<Box<dyn Shape>>
 }
 
 #[typetag::serde]
-impl Shape for CompositeShape {
+impl Shape for Composite {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let mut closest: Option<Intersection> = None;
         for shape in &self.shapes {
