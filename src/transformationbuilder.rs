@@ -28,14 +28,14 @@ impl TransformationBuilder {
         self
     }
 
-    pub fn scale(mut self, Point3D { x, y, z, .. }: Point3D) -> TransformationBuilder {
-        let mut matrix = Matrix::identity(4);
-        matrix[(0, 0)] = x;
-        matrix[(1, 1)] = y;
-        matrix[(2, 2)] = z;
-        self.matrix = self.matrix * matrix;
-        self
-    }
+    // pub fn scale(mut self, Point3D { x, y, z, .. }: Point3D) -> TransformationBuilder {
+    //     let mut matrix = Matrix::identity(4);
+    //     matrix[(0, 0)] = x;
+    //     matrix[(1, 1)] = y;
+    //     matrix[(2, 2)] = z;
+    //     self.matrix = self.matrix * matrix;
+    //     self
+    // }
 
     pub fn rotation_x(mut self, radians: f64) -> TransformationBuilder {
         let mut matrix = Matrix::identity(4);
