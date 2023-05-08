@@ -14,6 +14,7 @@ mod material;
 mod camera;
 mod light;
 mod scene;
+mod trace_rays;
 
 use nannou::prelude::*;
 use nannou::image::ImageBuffer;
@@ -59,6 +60,7 @@ fn model(app: &App) -> Model {
 }
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {
+    trace_rays::trace_rays(&_model.scene, &mut _model.framebuffer);
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {

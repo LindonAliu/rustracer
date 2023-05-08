@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 pub struct Camera {
     position: Point3D,
     direction: Vector3D,
-    width: u32,
-    height: u32,
-    fov: u32,
+    pub width: u32,
+    pub height: u32,
+    pub fov: f64,
 }
