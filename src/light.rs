@@ -5,8 +5,11 @@
 // light
 //
 
-pub mod point;
-pub mod ambient;
+mod point;
+mod ambient;
+
+pub use point::Point;
+pub use ambient::Ambient;
 
 use crate::material::Color;
 use crate::intersection::{Intersection};
