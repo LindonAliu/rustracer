@@ -15,4 +15,5 @@ pub struct Camera {
     direction: Vector3D,
     width: u32,
     height: u32,
+    fov: u32,
 }
