@@ -5,7 +5,7 @@
 // FreeKOSOVO
 //
 
-use crate::intersections::decorator::transformation::Transformation;
+use crate::shape::decorator::Transformation;
 use crate::transformationbuilder::TransformationBuilder;
 use crate::intersection::{Intersection, Ray};
 use crate::vector3d::Point3D;
@@ -13,19 +13,19 @@ use crate::shape::Shape;
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct SerRotation {
+struct SerRotation {
     #[serde(default)]
-    pub angle_x: f64,
+    angle_x: f64,
     #[serde(default)]
-    pub angle_y: f64,
+    angle_y: f64,
     #[serde(default)]
-    pub angle_z: f64,
-    pub center: Point3D,
-    pub wrapped: Box<dyn Shape>,
+    angle_z: f64,
+    center: Point3D,
+    wrapped: Box<dyn Shape>,
 }
 
 #[derive(Serialize, Deserialize)]
-struct Rotation(Transformation);
+pub struct Rotation(Transformation);
 
 impl From<SerRotation> for Rotation {
     fn from(other: SerRotation) -> Self {

@@ -11,9 +11,9 @@ use crate::shape::Shape;
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct SerTransformation {
-    pub transformation: [f64; 16],
-    pub wrapped: Box<dyn Shape>,
+struct SerTransformation {
+    transformation: [f64; 16],
+    wrapped: Box<dyn Shape>,
 }
 
 #[derive(Serialize, Deserialize)]

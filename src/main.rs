@@ -13,18 +13,6 @@ mod shape;
 mod material;
 mod camera;
 mod light;
-mod intersections {
-    pub mod plane;
-    pub mod sphere;
-    pub mod triangle;
-    pub mod composite;
-    pub mod decorator {
-        pub mod translation;
-        pub mod scale;
-        pub mod rotation;
-        pub mod transformation;
-    }
-}
 mod scene;
 
 use nannou::prelude::*;
