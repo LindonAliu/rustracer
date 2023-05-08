@@ -53,11 +53,11 @@ impl Point {
 
 #[typetag::serde]
 impl Light for Point {
-    fn light(&self, intersection: &Intersection, color: &Color) -> Color {
+    fn light(&self, intersection: &Intersection, color: &Color, shape: &dyn Shape) -> Color {
         let l: Vector3D = self.pos - intersection.intersection_point;
         let cos_a: f64 = intersection.normal.dot(l) / (intersection.normal.length() * l.length());
         let multiplier: f64 = if cos_a > 0. {
-            cos_a
+            cos_a * self.shadow(intersection, shape)
         } else {
             0.
         };

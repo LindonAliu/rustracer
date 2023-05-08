@@ -8,6 +8,7 @@
 use crate::material::Color;
 use crate::light::Light;
 use crate::intersection::{Intersection};
+use crate::shape::Shape;
 
 use serde::{Serialize, Deserialize};
 
@@ -19,7 +20,7 @@ pub struct Ambient {
 
 #[typetag::serde]
 impl Light for Ambient {
-    fn light(&self, _intersection: &Intersection, color: &Color) -> Color {
+    fn light(&self, _intersection: &Intersection, color: &Color, shape: &dyn Shape) -> Color {
         let multiplier: f64 = self.multiplier;
 
         Color {
