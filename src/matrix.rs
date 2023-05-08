@@ -128,9 +128,7 @@ impl Mul<Vector3D> for Matrix {
     type Output = Vector3D;
 
     fn mul(self, other: Vector3D) -> Vector3D {
-        let tmp_matrix = Matrix::from(other) * self;
-        let result = Vector3D::from(tmp_matrix);
-        return result;
+        Vector3D::from(self * Matrix::from(other))
     }
 }
 

@@ -5,6 +5,7 @@
 // FreeKOSOVO
 //
 
+use crate::vector3d::Point3D;
 use crate::matrix::Matrix;
 
 pub struct TransformationBuilder {
@@ -18,7 +19,7 @@ impl TransformationBuilder {
         }
     }
 
-    pub fn translation(mut self, x: f64, y: f64, z: f64) -> TransformationBuilder {
+    pub fn translation(mut self, Point3D { x, y, z, .. }: Point3D) -> TransformationBuilder {
         let mut matrix = Matrix::identity(4);
         matrix[(0, 3)] = x;
         matrix[(1, 3)] = y;
@@ -27,7 +28,7 @@ impl TransformationBuilder {
         self
     }
 
-    pub fn scale(mut self, x: f64, y: f64, z: f64) -> TransformationBuilder {
+    pub fn scale(mut self, Point3D { x, y, z, .. }: Point3D) -> TransformationBuilder {
         let mut matrix = Matrix::identity(4);
         matrix[(0, 0)] = x;
         matrix[(1, 1)] = y;

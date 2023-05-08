@@ -29,11 +29,11 @@ struct Rotation(Transformation);
 impl From<SerRotation> for Rotation {
     fn from(other: SerRotation) -> Self {
         let transformation = TransformationBuilder::new()
-            .translation(-other.center.x, -other.center.y, -other.center.z)
-            .rotation_x(other.angle_x)
-            .rotation_y(other.angle_y)
-            .rotation_z(other.angle_z)
-            .translation(other.center.x, other.center.y, other.center.z)
+            .translation(-other.center)
+            .rotation_x(other.angle_x.to_radians())
+            .rotation_y(other.angle_y.to_radians())
+            .rotation_z(other.angle_z.to_radians())
+            .translation(other.center)
             .get_matrix();
         let reverse_transformation = transformation.inverse();
         Rotation(Transformation {

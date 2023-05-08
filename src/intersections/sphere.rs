@@ -44,10 +44,10 @@ impl Shape for Sphere {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let pt: Vector3D = ray.origin - self.center;
         let pt_sphere: Vector3D = Vector3D {
-            w: 0.,
             x: sq(ray.direction.x) + sq(ray.direction.y) + sq(ray.direction.z),
             y: (2. * pt.x * ray.direction.x) + (2. * pt.y * ray.direction.y) + (2. * pt.z * ray.direction.z),
             z: sq(pt.x) + sq(pt.y) + sq(pt.z) - sq(self.radius),
+            w: 1.,
         };
         let delta: f64 = sq(pt_sphere.y) - (4.0 * pt_sphere.x * pt_sphere.z);
         let x1: f64 = (-pt_sphere.y + delta.sqrt()) / (2. * pt_sphere.x);

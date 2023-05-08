@@ -55,10 +55,10 @@ fn calcul_normal(intersection: Vector3D, a:Vector3D, b:Vector3D) -> Vector3D {
     let diff_b = b - intersection;
 
     let normal: Vector3D = Vector3D {
-        w: 0.,
         x: (diff_a.y) * (diff_b.z) - (diff_a.z) * (diff_b.y),
         y: (diff_a.z) * (diff_b.x) - (diff_a.x) * (diff_b.z),
         z: (diff_a.x) * (diff_b.y) - (diff_a.y) * (diff_b.x),
+        w: 1.,
     };
     normal
 }
