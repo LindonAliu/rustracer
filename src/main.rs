@@ -33,29 +33,32 @@ fn main() {
 }
 
 struct Model {
-    window: window::Id,
     framebuffer: DynamicImage,
     sizes: (u32, u32),
     scene: Scene,
 }
 
 fn model(app: &App) -> Model {
-    let sizes = (1920, 1080);
-    let window = app.new_window().size(sizes.0, sizes.1).view(view).build().unwrap();
-    let framebuffer = ImageRgb8(ImageBuffer::new(sizes.0, sizes.1));
     let filename = std::env::args().nth(1).unwrap();
-    if let Ok(file) = std::fs::read_to_string(filename) {
-        let scene = serde_json::from_str::<Scene>(file.as_str());
-        match scene {
-            Ok(scene) => Model { sizes, window, framebuffer, scene },
-            Err(e) => {
-                println!("Error: cannot parse scene file: {}", e);
-                std::process::exit(84);
-            }
+    let scene_result = std::fs::read_to_string(filename)
+      .and_then(|file| serde_json::from_str::<Scene>(&file).map_err(Into::into));
+
+    match scene_result {
+        Ok(scene) => {
+            let sizes = (scene.camera.width, scene.camera.height);
+            let framebuffer = ImageRgb8(ImageBuffer::new(sizes.0, sizes.1));
+            app.new_window()
+                .size(sizes.0, sizes.1)
+                .view(view)
+                .build()
+                .unwrap();
+    
+            Model { sizes, framebuffer, scene }
         }
-    } else {
-        println!("Error: cannot open scene file");
-        std::process::exit(84);
+        Err(e) => {
+            eprintln!("Error: cannot parse scene file: {}", e);
+            std::process::exit(84);
+        }
     }
 }
 
