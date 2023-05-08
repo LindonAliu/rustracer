@@ -11,6 +11,9 @@ pub mod ambient;
 use crate::material::Color;
 use crate::intersection::{Intersection};
 
+#[typetag::serde(tag = "type")]
 pub trait Light {
+    /// Returns the color of the light at the intersection point
+    /// Will be black if the light is not visible from the intersection point
     fn light(&self, intersection: &Intersection, color: &Color) -> Color;
 }
