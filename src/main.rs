@@ -18,7 +18,7 @@ mod scene;
 use nannou::prelude::*;
 use nannou::image::ImageBuffer;
 use nannou::wgpu;
-use nannou::image::DynamicImage; 
+use nannou::image::DynamicImage;
 use nannou::image::DynamicImage::ImageRgb8;
 
 use crate::scene::Scene;

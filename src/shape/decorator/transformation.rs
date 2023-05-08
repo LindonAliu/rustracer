@@ -45,7 +45,7 @@ impl Shape for Transformation {
             direction: (self.reverse_transformation.clone() *
                 (ray.origin + ray.direction)) - new_origin,
         };
-        
+
         if let Some(intersection) = self.wrapped.intersect(&scaled_ray) {
             let new_intersection = self.transformation.clone() * intersection.intersection_point;
             let distance = (ray.origin - new_intersection).length();
