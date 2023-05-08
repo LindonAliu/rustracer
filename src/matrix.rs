@@ -5,9 +5,10 @@
 // FreeKOSOVO
 //
 
-use std::ops::{Add, AddAssign, Mul, Div};
+use std::ops::{Add, AddAssign, Mul, Div, Index, IndexMut};
 use crate::vector3d::Vector3D;
 
+#[derive(Debug, Clone)]
 pub struct Matrix {
     storage: Vec<f64>,
     rows: usize,
@@ -32,7 +33,7 @@ impl Matrix {
     }
 }
 
-impl std::ops::Index<(usize, usize)> for Matrix {
+impl Index<(usize, usize)> for Matrix {
     type Output = f64;
 
     fn index(&self, (rows, cols): (usize, usize)) -> &f64 {
@@ -40,7 +41,7 @@ impl std::ops::Index<(usize, usize)> for Matrix {
     }
 }
 
-impl std::ops::IndexMut<(usize, usize)> for Matrix {
+impl IndexMut<(usize, usize)> for Matrix {
     fn index_mut(&mut self, (rows, cols): (usize, usize)) -> &mut f64 {
         &mut self.storage[rows * self.cols + cols]
     }
