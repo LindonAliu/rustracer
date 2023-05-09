@@ -13,6 +13,8 @@ mod triangle;
 pub use triangle::Triangle;
 mod composite;
 pub use composite::Composite;
+mod include;
+pub use include::Include;
 pub mod decorator {
     mod translation;
     pub use translation::Translation;
