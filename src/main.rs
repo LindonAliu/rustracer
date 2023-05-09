@@ -52,7 +52,7 @@ fn model(app: &App) -> Model {
                 .view(view)
                 .build()
                 .unwrap();
-    
+
             Model { sizes, framebuffer, scene }
         }
         Err(e) => {

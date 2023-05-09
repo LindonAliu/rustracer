@@ -22,12 +22,15 @@ pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
     };
     let width = scene.camera.width as f64;
     let height = scene.camera.height as f64;
+    let tan_a = (scene.camera.fov / 2.0).tan();
+    let tan_b = tan_a * (width / height);
+    let delta = (2.0 * tan_b) / width;
 
+    ray.direction.z = 1.0;
     for x in 0..scene.camera.width {
-        ray.direction.z = width * ((x as f64 / (width / 2.0) - 1.0) * (scene.camera.fov / 2.0).to_radians()).cos();
         for y in 0..scene.camera.height {
-            ray.direction.x = x as f64 - width / 2.0;
-            ray.direction.y = y as f64 - height / 2.0;
+            ray.direction.x = -tan_b + (x as f64 * delta);
+            ray.direction.y = -tan_a + (y as f64 * delta);
             match scene.shape.intersect(&ray) {
                 Some(intersection) => {
                     let color: Rgb<u8> =
