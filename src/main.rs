@@ -64,6 +64,7 @@ fn model(app: &App) -> Model {
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {
     trace_rays::trace_rays(&_model.scene, &mut _model.framebuffer);
+    println!("Done!");
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
