@@ -166,8 +166,8 @@ impl Matrix {
     fn cofactor(&self, i: usize, j: usize) -> f64 {
         let coeff = if (i + j) % 2 == 0 { 1.0 } else { -1.0 };
         let mut minor = Matrix::new(self.rows - 1, self.cols - 1);
-        for rows in 0..self.rows {
-            for cols in 0..self.cols {
+        for rows in 0..minor.rows {
+            for cols in 0..minor.cols {
                 minor[(rows, cols)] = match (rows >= i, cols >= j) {
                     (true, true) => self[(rows + 1, cols + 1)],
                     (true, false) => self[(rows + 1, cols)],
