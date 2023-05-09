@@ -25,6 +25,7 @@ struct SerRotation {
 }
 
 #[derive(Serialize, Deserialize)]
+#[serde(from = "SerRotation")]
 pub struct Rotation(Transformation);
 
 impl From<SerRotation> for Rotation {
