@@ -9,7 +9,7 @@
         ],
         "wrapped": {
             "type": "OBJFile",
-            "path": "/home/epedersen/delivery/tek1/graphics/raytracer/bonus/Leandre.obj",
+            "path": "models/Leandre.obj",
             "material": {
                 "Color": {
                     "r": 255,
