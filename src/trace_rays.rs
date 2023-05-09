@@ -28,8 +28,8 @@ pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
 
     ray.direction.z = 1.0;
     for x in 0..scene.camera.width {
+        ray.direction.x = -tan_b + (x as f64 * delta);
         for y in 0..scene.camera.height {
-            ray.direction.x = -tan_b + (x as f64 * delta);
             ray.direction.y = -tan_a + (y as f64 * delta);
             match scene.shape.intersect(&ray) {
                 Some(intersection) => {

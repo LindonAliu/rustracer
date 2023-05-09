@@ -11,8 +11,8 @@ use serde::{Deserialize, Serialize};
 /// Represents a camera.
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Camera {
-    position: Point3D,
-    direction: Vector3D,
+    pub position: Point3D,
+    pub direction: Vector3D,
     pub width: u32,
     pub height: u32,
     pub fov: f64,
