@@ -4,7 +4,7 @@
         "center": {
             "x": 0,
             "y": 0,
-            "z": 0
+            "z": 10
         },
         "radius": 1,
         "material": {
@@ -15,5 +15,20 @@
                 "a": 255
             }
         }
+    },
+    "camera": {
+        "direction": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+       },
+       "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+       },
+       "fov": 60,
+       "width": 1920,
+       "height": 1080
     }
 }
