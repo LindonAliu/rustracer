@@ -1,23 +1,48 @@
 {
     "shape": {
-        "type": "Transformation",
-        "transformation": [
-            10000, 0, 0, -10000,
-            0, 10000, 0, -10000,
-            0, 0, 10000, 18000,
-            0, 0, 0, 1
-        ],
-        "wrapped": {
-            "type": "OBJFile",
-            "path": "models/Leandre.obj",
-            "material": {
-                "Color": {
-                    "r": 255,
-                    "g": 255,
-                    "b": 255
+        "type": "Composite",
+        "shapes": [
+            {
+                "type": "Transformation",
+                "transformation": [
+                    0, 0, 10000, 0,
+                    0, 10000, 0, 0,
+                    10000, 0, 0, 6000,
+                    0, 0, 0, 1
+                ],
+                "wrapped": {
+                    "type": "OBJFile",
+                    "path": "models/Leandre.obj",
+                    "material": {
+                        "Color": {
+                            "r": 255,
+                            "g": 255,
+                            "b": 255
+                        }
+                    }
+                }
+            },
+            {
+                "type": "Plane",
+                "pos": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 20000
+                },
+                "normal": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 1
+                },
+                "material": {
+                    "Color": {
+                        "r": 80,
+                        "g": 127,
+                        "b": 255
+                    }
                 }
             }
-        }
+        ]
     },
     "camera": {
         "direction": {
@@ -31,7 +56,48 @@
             "z": 0
        },
        "fov": 60,
-       "width": 400,
-       "height": 300
-    }
+       "width": 600,
+       "height": 400
+    },
+    "lights": [
+        {
+            "type": "Point",
+            "pos": {
+                "x": 10000,
+                "y": -10000,
+                "z": 0
+            },
+            "color": {
+                "r": 255,
+                "g": 255,
+                "b": 255
+            }
+        },
+        {
+            "type": "Point",
+            "pos": {
+                "x": 0,
+                "y": 0,
+                "z": 10000
+            },
+            "color": {
+                "r": 255,
+                "g": 255,
+                "b": 255
+            }
+        },
+        {
+            "type": "Point",
+            "pos": {
+                "x": -10000,
+                "y": -10000,
+                "z": 0
+            },
+            "color": {
+                "r": 255,
+                "g": 255,
+                "b": 255
+            }
+        }
+    ]
 }
