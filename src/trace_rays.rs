@@ -16,7 +16,7 @@ use crate::shape::Shape;
 use crate::light::Light;
 use crate::intersection::{Intersection};
 
-pub struct InfColor {
+struct InfColor {
     r: f64,
     g: f64,
     b: f64
