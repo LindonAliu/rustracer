@@ -8,7 +8,6 @@
 use crate::scene::Scene;
 use nannou::image::DynamicImage;
 use nannou::image::RgbImage;
-use nannou::image::Rgb;
 use crate::intersection::Ray;
 use crate::vector3d::{Point3D, Vector3D};
 use crate::material::Color;
@@ -32,7 +31,7 @@ fn correct_gamma(color: InfColor) -> Color {
     }
 }
 
-fn modify_lights(color: &Color, lights: Vec<Box<dyn Light>>, intersection: &Intersection, shape: &dyn Shape) -> Color {
+fn modify_lights(color: &Color, lights: &Vec<Box<dyn Light>>, intersection: &Intersection, shape: &dyn Shape) -> Color {
     let mut infcolor: InfColor = InfColor {
         r: 0.,
         g: 0.,
@@ -48,7 +47,7 @@ fn modify_lights(color: &Color, lights: Vec<Box<dyn Light>>, intersection: &Inte
     correct_gamma(infcolor)
 }
 
-pub fn trace_ray(ray: &Ray, shape: &dyn Shape, lights: Vec<Box<dyn Light>>) -> Color {
+pub fn trace_ray(ray: &Ray, shape: &dyn Shape, lights: &Vec<Box<dyn Light>>) -> Color {
     match shape.intersect(ray) {
         None => Color {
             r: 0,
@@ -102,23 +101,8 @@ pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
         ray.direction.x = -tan_b + (x as f64 * delta);
         for y in 0..scene.camera.height {
             ray.direction.y = -tan_a + (y as f64 * delta);
-            match scene.shape.intersect(&ray) {
-                Some(intersection) => {
-                    let color: Rgb<u8> =
-                        match intersection.material {
-                            Material::Color(Color{r, g, b, ..}) => {
-                                [r, g, b].into()
-                            },
-                            _  => {
-                                [0, 0, 0].into()
-                            }
-                        };
-                    buffer.put_pixel(x, y, color);
-                },
-                None => {
-                    continue;
-                }
-            }
+            let Color{r, g, b, ..} = trace_ray(&ray, scene.shape.as_ref(), &scene.lights);
+            buffer.put_pixel(x, y, [r, g, b].into());
         }
     }
 }
