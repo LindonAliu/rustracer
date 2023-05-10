@@ -92,7 +92,7 @@ pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
     };
     let width = scene.camera.width as f64;
     let height = scene.camera.height as f64;
-    let tan_a = (scene.camera.fov / 2.0).tan();
+    let tan_a = (scene.camera.fov.to_radians() / 2.0).tan();
     let tan_b = tan_a * (width / height);
     let delta = (2.0 * tan_b) / width;
 
