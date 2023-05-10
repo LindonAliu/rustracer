@@ -25,8 +25,9 @@ use nannou::image::DynamicImage::ImageRgb8;
 use crate::scene::Scene;
 
 fn main() {
-    if std::env::args().len() != 2 {
-        println!("Usage: ./raytracer <scene.json>");
+    let argc = std::env::args().len();
+    if argc < 2 || argc > 3 {
+        println!("Usage: ./raytracer <scene.json> [output.png]");
         std::process::exit(84);
     }
     nannou::app(model).update(update).run();
@@ -64,6 +65,12 @@ fn model(app: &App) -> Model {
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {
     trace_rays::trace_rays(&_model.scene, &mut _model.framebuffer);
+    if let Some(filename) = std::env::args().nth(2) {
+        if let Err(err) = _model.framebuffer.save(filename) {
+            eprintln!("Error: cannot save image: {}", err);
+            std::process::exit(84);
+        }
+    }
     println!("Done!");
 }
 
