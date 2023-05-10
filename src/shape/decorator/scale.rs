@@ -8,27 +8,40 @@
 use crate::intersection::{Intersection, Ray};
 use crate::vector3d::Vector3D;
 use crate::shape::Shape;
+use crate::shape::decorator::Transformation;
+use crate::transformationbuilder::TransformationBuilder;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct Scale {
-    pub wrapped: Box<dyn Shape>,
-    pub scale: Vector3D,
+struct SerScale {
+    wrapped: Box<dyn Shape>,
+    scale: Vector3D,
+    center: Vector3D,
+}
+
+#[derive(Serialize, Deserialize)]
+#[serde(from = "SerScale")]
+pub struct Scale(Transformation);
+
+impl From<SerScale> for Scale {
+    fn from(other: SerScale) -> Self {
+        let transformation = TransformationBuilder::new()
+            .translation(-other.center)
+            .scale(other.scale)
+            .translation(other.center)
+            .get_matrix();
+        let reverse_transformation = transformation.inverse();
+        Scale(Transformation {
+            transformation,
+            reverse_transformation,
+            wrapped: other.wrapped,
+        })
+    }
 }
 
 #[typetag::serde]
 impl Shape for Scale {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
-        let scaled_ray = Ray {
-            origin: ray.origin / self.scale,
-            direction: ray.direction,
-        };
-        if let Some(intersection) = self.wrapped.intersect(&scaled_ray) {
-            let mut intersection = intersection;
-            intersection.intersection_point *= self.scale;
-            Some(intersection)
-        } else {
-            None
-        }
+        self.0.intersect(ray)
     }
 }

@@ -4,7 +4,7 @@
         "center": {
             "x": 0,
             "y": 0,
-            "z": 10
+            "z": 2
         },
         "radius": 1,
         "material": {
