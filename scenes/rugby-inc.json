@@ -1,12 +1,16 @@
 {
     "shape": {
-        "type": "Transformation",
-        "transformation": [
-            2, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        ],
+        "type": "Scale",
+        "scale": {
+            "x": 2,
+            "y": 1,
+            "z": 1
+        },
+        "center": {
+            "x": 0,
+            "y": 0,
+            "z": 2
+        },
         "wrapped": {
             "type": "Include",
             "path": "scenes/sphere.json"
