@@ -192,7 +192,7 @@ impl Matrix {
     pub fn inverse(&self) -> Matrix {
         let mut inverse = Matrix::new(self.rows, self.cols);
         let det = self.determinant();
-        
+
         if det == 0.0 || self.rows != self.cols {
             panic!("Matrix is not invertible");
         }
