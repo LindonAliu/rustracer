@@ -35,17 +35,23 @@ pub struct Triangle {
 
 impl From<SerTriangle> for Triangle {
     fn from(triangle: SerTriangle) -> Self {
-        let normal = calcul_normal(triangle.a, triangle.b, triangle.c);
-        let d = -triangle.a.dot(normal);
+        Triangle::new(triangle.a, triangle.b, triangle.c, triangle.material)
+    }
+}
+
+impl Triangle {
+    pub fn new(a: Point3D, b: Point3D, c: Point3D, material: Material) -> Self {
+        let normal = calcul_normal(a, b, c);
+        let d = -a.dot(normal);
         let normal_sq = normal.dot(normal);
         Triangle {
-            a: triangle.a,
-            b: triangle.b,
-            c: triangle.c,
+            a,
+            b,
+            c,
             normal,
             d,
             normal_sq,
-            material: triangle.material
+            material
         }
     }
 }
