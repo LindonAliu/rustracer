@@ -7,9 +7,11 @@
 
 mod point;
 mod ambient;
+mod directional;
 
 pub use point::Point;
 pub use ambient::Ambient;
+pub use directional::Directional;
 
 use crate::material::Color;
 use crate::intersection::{Intersection};
