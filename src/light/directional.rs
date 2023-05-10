@@ -16,8 +16,13 @@ use serde::{Serialize, Deserialize};
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Directional {
     pub direction: Vector3D,
+    #[serde(default = "default_multiplier")]
     pub multiplier: f64,
     pub color: Color
+}
+
+fn default_multiplier() -> f64 {
+    1.
 }
 
 #[typetag::serde]
