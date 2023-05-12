@@ -10,16 +10,13 @@ use crate::material::Material;
 use crate::shape::Shape;
 use crate::vector3d::{Point3D, Vector3D};
 use serde::{Deserialize, Serialize};
+use crate::shape::polynomial::{sq, intersect_polynomial};
 
 #[derive(Serialize, Deserialize)]
 pub struct Sphere {
     pub center: Point3D,
     pub radius: f64,
     pub material: Material
-}
-
-fn sq(val: f64) -> f64 {
-    val * val
 }
 
 fn sphere_calcul_intersect(sphere: &Sphere, ray: &Ray, x: f64) -> Option<Intersection> {
@@ -49,22 +46,11 @@ impl Shape for Sphere {
             z: sq(pt.x) + sq(pt.y) + sq(pt.z) - sq(self.radius),
             w: 1.,
         };
-        let delta: f64 = sq(pt_sphere.y) - (4.0 * pt_sphere.x * pt_sphere.z);
-        let x1: f64 = (-pt_sphere.y + delta.sqrt()) / (2. * pt_sphere.x);
-        let x2: f64 = (-pt_sphere.y - delta.sqrt()) / (2. * pt_sphere.x);
 
-        if delta < 0. || (x1 < 0. && x2 < 0.) || delta.is_nan() {
-            return None;
-        }
-
-        if delta == 0. {
-            sphere_calcul_intersect(self, ray, x1)
-        } else if x1 >= 0. && x2 < 0. {
-            sphere_calcul_intersect(self, ray, x1)
-        } else if x2 >= 0. && x1 < 0. {
-            sphere_calcul_intersect(self, ray, x2)
+        if let Some(x) = intersect_polynomial(pt_sphere) {
+            sphere_calcul_intersect(self, ray, x)
         } else {
-            sphere_calcul_intersect(self, ray, x1.min(x2))
+            None
         }
     }
 }
