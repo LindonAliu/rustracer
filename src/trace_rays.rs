@@ -9,7 +9,7 @@ use crate::scene::Scene;
 use nannou::image::DynamicImage;
 use nannou::image::RgbImage;
 use crate::intersection::Ray;
-use crate::vector3d::{Point3D, Vector3D};
+use crate::vector3d::Vector3D;
 use crate::material::Color;
 use crate::material::Material;
 use crate::shape::Shape;
@@ -94,11 +94,11 @@ fn fill_matrix(matrix: &mut Matrix, index: usize, val: Vector3D)
 
 pub fn get_camera_transformation(scene: &Scene) -> Matrix
 {
-    let mut y: Vector3D = Vector3D { x: (0.0), y: (1.0), z: (0.0), w: (0.0) };
+    let y: Vector3D = Vector3D { x: (0.0), y: (1.0), z: (0.0), w: (0.0) };
     let z: Vector3D = scene.camera.direction.normalize();
     let x: Vector3D = y.cross(z).normalize();
 
-    y = z.cross(x).normalize();
+    let y: Vector3D = z.cross(x);
 
     let mut res: Matrix = Matrix::identity(4);
 
@@ -119,11 +119,8 @@ pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
 
     for x in 0..scene.camera.width {
         for y in 0..scene.camera.height {
-            let tmp: Ray = Ray {
-                origin: scene.camera.position,
-                direction: Vector3D { x: ( -tan_b + (x as f64 * delta)), y: ( -tan_a + (y as f64 * delta)), z: (1.0), w: (0.0) }
-            };
-            let ray:Ray = Ray { origin: (tmp.origin), direction: (transform_cam.clone() * tmp.direction) };
+            let tmp: Vector3D = Vector3D { x: ( -tan_b + (x as f64 * delta)), y: ( -tan_a + (y as f64 * delta)), z: (1.0), w: (1.0) };
+            let ray:Ray = Ray { origin: (scene.camera.position), direction: (transform_cam.clone() * tmp) };
             let Color{r, g, b, ..} = trace_ray(&ray, scene.shape.as_ref(), &scene.lights);
             buffer.put_pixel(x, y, [r, g, b].into());
         }
