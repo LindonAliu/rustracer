@@ -9,12 +9,13 @@ use crate::scene::Scene;
 use nannou::image::DynamicImage;
 use nannou::image::RgbImage;
 use crate::intersection::Ray;
-use crate::vector3d::{Point3D, Vector3D};
+use crate::vector3d::Vector3D;
 use crate::material::Color;
 use crate::material::Material;
 use crate::shape::Shape;
 use crate::light::Light;
-use crate::intersection::{Intersection};
+use crate::intersection::Intersection;
+use crate::matrix::Matrix;
 
 struct InfColor {
     r: f64,
@@ -84,23 +85,42 @@ pub fn trace_ray(ray: &Ray, shape: &dyn Shape, lights: &Vec<Box<dyn Light>>) -> 
     }
 }
 
+fn fill_matrix(matrix: &mut Matrix, index: usize, val: Vector3D)
+{
+    matrix[(index, 0)] = val.x;
+    matrix[(index, 1)] = val.y;
+    matrix[(index, 2)] = val.z;
+}
+
+pub fn get_camera_transformation(scene: &Scene) -> Matrix
+{
+    let y: Vector3D = Vector3D { x: (0.0), y: (1.0), z: (0.0), w: (0.0) };
+    let z: Vector3D = scene.camera.direction.normalize();
+    let x: Vector3D = y.cross(z).normalize();
+
+    let y: Vector3D = z.cross(x);
+
+    let mut res: Matrix = Matrix::identity(4);
+
+    fill_matrix(&mut res, 0, x);
+    fill_matrix(&mut res, 1, y);
+    fill_matrix(&mut res, 2, z);
+    res
+}
+
 pub fn trace_rays(scene: &Scene, framebuffer: &mut DynamicImage) {
     let buffer: &mut RgbImage = framebuffer.as_mut_rgb8().unwrap();
-    let mut ray: Ray = Ray {
-        origin: Point3D {x: 0.0, y: 0.0, z:0.0, w:0.0},
-        direction: Vector3D { x: (0.), y: (0.0), z: (500.0), w: (0.0) }
-    };
     let width = scene.camera.width as f64;
     let height = scene.camera.height as f64;
     let tan_a = (scene.camera.fov.to_radians() / 2.0).tan();
     let tan_b = tan_a * (width / height);
     let delta = (2.0 * tan_b) / width;
+    let transform_cam = get_camera_transformation(scene);
 
-    ray.direction.z = 1.0;
     for x in 0..scene.camera.width {
-        ray.direction.x = -tan_b + (x as f64 * delta);
         for y in 0..scene.camera.height {
-            ray.direction.y = -tan_a + (y as f64 * delta);
+            let tmp: Vector3D = Vector3D { x: ( -tan_b + (x as f64 * delta)), y: ( -tan_a + (y as f64 * delta)), z: (1.0), w: (1.0) };
+            let ray:Ray = Ray { origin: (scene.camera.position), direction: (transform_cam.clone() * tmp) };
             let Color{r, g, b, ..} = trace_ray(&ray, scene.shape.as_ref(), &scene.lights);
             buffer.put_pixel(x, y, [r, g, b].into());
         }
