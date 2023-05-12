@@ -19,21 +19,20 @@ pub struct Sphere {
     pub material: Material
 }
 
-fn sphere_calcul_intersect(sphere: &Sphere, ray: &Ray, x: f64) -> Option<Intersection> {
+fn sphere_calcul_intersect(sphere: &Sphere, ray: &Ray, x: f64) -> Intersection {
     let intersection_point: Vector3D = ray.origin + ray.direction * x;
     let normal: Vector3D = intersection_point - sphere.center;
-    Some (
-        Intersection {
-            intersection_point: intersection_point,
-            distance: (ray.origin - intersection_point).length(),
-            normal: if ray.direction.dot(normal) > 0. {
-                -normal
-            } else {
-                normal
-            },
-            material: sphere.material
-        }
-    )
+    
+    Intersection {
+        intersection_point: intersection_point,
+        distance: (ray.origin - intersection_point).length(),
+        normal: if ray.direction.dot(normal) > 0. {
+            -normal
+        } else {
+            normal
+        },
+        material: sphere.material
+    }
 }
 
 #[typetag::serde]
@@ -48,7 +47,7 @@ impl Shape for Sphere {
         };
 
         if let Some(x) = intersect_polynomial(pt_sphere) {
-            sphere_calcul_intersect(self, ray, x)
+            Some(sphere_calcul_intersect(self, ray, x))
         } else {
             None
         }
