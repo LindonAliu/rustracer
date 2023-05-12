@@ -31,6 +31,18 @@ impl Vector3D {
     pub fn dot(&self, other: Vector3D) -> f64 {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
+    pub fn normalize(self) -> Vector3D {
+        self / self.length()
+    }
+    pub fn cross(self, other: Vector3D) -> Vector3D {
+        let res: Vector3D = Vector3D {
+            x: ((self.y * other.z) - (self.z * other.y)),
+            y: ((self.z * other.x) - (self.x * other.z)),
+            z: ((self.x * other.y) - (self.y * other.x)),
+            w: (0.0)
+        };
+        res
+    }
 }
 
 impl Index<usize> for Vector3D {
