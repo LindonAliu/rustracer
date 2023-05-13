@@ -1,7 +1,7 @@
 {
     "shape": {
         "type": "Cone",
-        "radius": 30,
+        "angle": 30,
         "material": {
             "Color": {
                 "r": 255,

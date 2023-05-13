@@ -14,7 +14,7 @@ use crate::shape::polynomial::{sq, intersect_polynomial};
 
 #[derive(Serialize, Deserialize)]
 pub struct Cone {
-    pub radius: f64,
+    pub angle: f64,
     pub material: Material,
 }
 
@@ -46,7 +46,7 @@ fn cone_calcul_intersect(cone: &Cone, ray: &Ray, x: f64) -> Intersection {
 #[typetag::serde]
 impl Shape for Cone {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
-        let zc = sq(self.radius.to_radians());
+        let zc = sq(self.angle.to_radians());
         let pt_cone: Vector3D = Vector3D {
             x: sq(ray.direction.x) + sq(ray.direction.y) - zc * sq(ray.direction.z),
             y: 2. * (ray.origin.x * ray.direction.x + ray.origin.y * ray.direction.y - zc * ray.origin.z * ray.direction.z),
