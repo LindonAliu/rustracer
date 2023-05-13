@@ -1,7 +1,7 @@
 {
     "shape": {
         "type": "Cone",
-        "radius": 5,
+        "radius": 30,
         "material": {
             "Color": {
                 "r": 255,
@@ -18,7 +18,7 @@
             "z": 0
        },
        "position": {
-            "x": 10,
+            "x": 5,
             "y": 0,
             "z": 0
        },
@@ -30,7 +30,7 @@
         {
             "type": "Point",
             "pos": {
-                "x": 10,
+                "x": 1,
                 "y": 0,
                 "z": 0
             },
