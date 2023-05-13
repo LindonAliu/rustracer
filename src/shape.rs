@@ -15,6 +15,8 @@ mod composite;
 pub use composite::Composite;
 mod cylinder;
 pub use cylinder::Cylinder;
+mod cone;
+pub use cone::Cone;
 pub mod polynomial;
 mod include;
 pub use include::Include;
