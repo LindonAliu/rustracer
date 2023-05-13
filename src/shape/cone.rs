@@ -21,8 +21,14 @@ pub struct Cone {
 fn cone_calcul_intersect(cone: &Cone, ray: &Ray, x: f64) -> Intersection {
     let intersection_point = ray.origin + ray.direction * x;
     let v = intersection_point.normalize();
-    let d = -ray.direction.normalize();
-    let p = v.cross(d).normalize(); 
+    let local_center: Vector3D = Vector3D {
+        x: 0.,
+        y: 0.,
+        z: intersection_point.z,
+        w: 1.
+    };
+    let d = (local_center - intersection_point).normalize();
+    let p = v.cross(d).normalize();
     let normal = p.cross(v);
 
     Intersection {
