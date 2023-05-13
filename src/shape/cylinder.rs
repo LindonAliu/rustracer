@@ -20,13 +20,12 @@ pub struct Cylinder {
 
 fn cylinder_calcul_intersect(cylinder: &Cylinder, ray: &Ray, x: f64) -> Intersection {
     let intersection_point: Vector3D = ray.origin + ray.direction * x;
-    let center: Vector3D = Vector3D {
-        x: 0.,
-        y: 0.,
-        z: intersection_point.z,
+    let normal: Vector3D = Vector3D {
+        x: intersection_point.x,
+        y: intersection_point.y,
+        z: 0.,
         w: 1.
     };
-    let normal: Vector3D = intersection_point - center;
     Intersection {
         intersection_point: intersection_point,
         distance: (ray.origin - intersection_point).length(),
@@ -44,7 +43,7 @@ impl Shape for Cylinder {
     fn intersect(&self, ray: &Ray) -> Option<Intersection> {
         let pt_cylinder: Vector3D = Vector3D {
             x: sq(ray.direction.x) + sq(ray.direction.y),
-            y: 2. * (ray.origin.x + ray.direction.x + ray.origin.y * ray.direction.y),
+            y: 2. * (ray.origin.x * ray.direction.x + ray.origin.y * ray.direction.y),
             z: sq(ray.origin.x) + sq(ray.origin.y) - sq(self.radius),
             w: 1.,
         };
