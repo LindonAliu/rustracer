@@ -29,3 +29,23 @@ pub struct Ray {
     /// The direction of the ray, as a 3D vector.
     pub direction: Vector3D,
 }
+
+impl Intersection {
+    pub fn new(
+        intersection_point: Point3D,
+        normal: Vector3D,
+        material: Material,
+        ray: &Ray,
+    ) -> Self {
+        Intersection {
+            intersection_point: intersection_point,
+            distance: (ray.origin - intersection_point).length(),
+            normal: if ray.direction.dot(normal) > 0. {
+                -normal
+            } else {
+                normal
+            },
+            material: material,
+        }
+    }
+}

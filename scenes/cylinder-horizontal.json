@@ -1,29 +1,23 @@
 {
     "shape": {
-        "type": "Sphere",
-        "center": {
-            "x": 0,
-            "y": 0,
-            "z": 3
-        },
-        "radius": 1,
+        "type": "Cylinder",
+        "radius": 2,
         "material": {
             "Color": {
-                "r": 255,
-                "g": 0,
-                "b": 0,
-                "a": 255
+                "r": 127,
+                "g": 255,
+                "b": 80
             }
         }
     },
     "camera": {
         "direction": {
-            "x": 0,
+            "x": 1,
             "y": 0,
-            "z": 1
+            "z": 0
        },
        "position": {
-            "x": 0,
+            "x": 10,
             "y": 0,
             "z": 0
        },
@@ -35,15 +29,14 @@
         {
             "type": "Point",
             "pos": {
-                "x": 10,
+                "x": 8,
                 "y": 0,
                 "z": 0
             },
             "color": {
                 "r": 255,
                 "g": 255,
-                "b": 255,
-                "a": 255
+                "b": 255
             }
         }
     ]

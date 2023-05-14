@@ -30,16 +30,7 @@ impl Shape for Plane {
         }
         let intersection_point: Vector3D = ray.origin + ray.direction * t;
         Some (
-            Intersection {
-                intersection_point: intersection_point,
-                normal: if divi > 0. {
-                    -self.normal
-                } else {
-                    self.normal
-                },
-                distance: (ray.origin - intersection_point).length(),
-                material: self.material
-            }
+            Intersection::new(intersection_point, self.normal, self.material, ray)
         )
     }
 }

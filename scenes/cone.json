@@ -1,12 +1,7 @@
 {
     "shape": {
-        "type": "Sphere",
-        "center": {
-            "x": 0,
-            "y": 0,
-            "z": 3
-        },
-        "radius": 1,
+        "type": "Cone",
+        "angle": 30,
         "material": {
             "Color": {
                 "r": 255,
@@ -18,12 +13,12 @@
     },
     "camera": {
         "direction": {
-            "x": 0,
+            "x": 1,
             "y": 0,
-            "z": 1
+            "z": 0
        },
        "position": {
-            "x": 0,
+            "x": 5,
             "y": 0,
             "z": 0
        },
@@ -35,7 +30,7 @@
         {
             "type": "Point",
             "pos": {
-                "x": 10,
+                "x": 1,
                 "y": 0,
                 "z": 0
             },
