@@ -98,7 +98,7 @@ pub fn get_camera_transformation(scene: &Scene) -> Matrix
     let z: Vector3D = scene.camera.direction.normalize();
     let x: Vector3D = y.cross(z).normalize();
 
-    let y: Vector3D = z.cross(x);
+    let y: Vector3D = x.cross(z);
 
     let mut res: Matrix = Matrix::identity(4);
 
