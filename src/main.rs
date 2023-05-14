@@ -64,6 +64,7 @@ fn model(app: &App) -> Model {
 }
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {
+    _model.scene.update(_app);
     trace_rays::trace_rays(&_model.scene, &mut _model.framebuffer);
     if let Some(filename) = std::env::args().nth(2) {
         if let Err(err) = _model.framebuffer.save(filename) {
@@ -71,7 +72,6 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {
             std::process::exit(84);
         }
     }
-    _model.scene.update(_app);
     println!("Done!");
 }
 

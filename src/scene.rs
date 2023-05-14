@@ -44,10 +44,6 @@ fn get_matrix_direction_event(app: &App) -> Matrix {
     tb.get_matrix()
 }
 
-fn get_updated_direction(direction: Vector3D, matrix_direction: Matrix, matrix_direction_event: Matrix) -> Vector3D {
-    matrix_direction.clone() * matrix_direction_event * matrix_direction.inverse() * direction
-}
-
 fn get_position_matrix_event(app: &App) -> Matrix {
     let mut tb = TransformationBuilder::new();
     let how_much = if app.keys.down.contains(&Key::LShift) || app.keys.down.contains(&Key::RShift) {
@@ -83,14 +79,14 @@ impl Scene {
         let matrix_direction = get_camera_transformation(self);
         let matrix_direction_event = get_matrix_direction_event(app);
 
-        self.camera.direction = get_updated_direction(self.camera.direction,
-            matrix_direction, matrix_direction_event);
+        self.camera.direction = matrix_direction.clone() * matrix_direction_event * matrix_direction.inverse() * self.camera.direction;
     }
 
     pub fn update_position(&mut self, app: &App) {
+        let matrix = get_camera_transformation(self);
         let matrix_transfo = get_position_matrix_event(app);
 
-        self.camera.position = matrix_transfo * self.camera.position;
+        self.camera.position = matrix.clone() * matrix_transfo * matrix.inverse() * self.camera.position;
     }
 
     pub fn update(&mut self, app: &App) {
