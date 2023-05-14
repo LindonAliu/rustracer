@@ -33,26 +33,26 @@ impl Camera {
         if app.keys.down.contains(&Key::Down) {
             self.position.y += 0.1;
         }
-        if app.keys.down.contains(&Key::A) {
+        if app.keys.down.contains(&Key::I) {
             self.position.z -= 0.1;
         }
-        if app.keys.down.contains(&Key::E) {
+        if app.keys.down.contains(&Key::K) {
             self.position.z += 0.1;
         }
     }
 
     fn update_direction(&mut self, app: &App) {
-        if app.keys.down.contains(&Key::W) {
-            self.direction.x -= 0.1;
+        if app.keys.down.contains(&Key::Z) || app.keys.down.contains(&Key::W) {
+            self.direction.y += 0.1;
         }
-        if app.keys.down.contains(&Key::E) {
+        if app.keys.down.contains(&Key::Q) || app.keys.down.contains(&Key::A) {
             self.direction.x += 0.1;
         }
         if app.keys.down.contains(&Key::S) {
             self.direction.y -= 0.1;
         }
-        if app.keys.down.contains(&Key::N) {
-            self.direction.y += 0.1;
+        if app.keys.down.contains(&Key::D) {
+            self.direction.x -= 0.1;
         }
     }
 
