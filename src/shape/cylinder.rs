@@ -40,10 +40,6 @@ impl Shape for Cylinder {
             w: 1.,
         };
 
-        if let Some(x) = intersect_polynomial(pt_cylinder) {
-            Some(cylinder_calcul_intersect(self, ray, x))
-        } else {
-            None
-        }
+        intersect_polynomial(pt_cylinder).map(|x| cylinder_calcul_intersect(self, ray, x))
     }
 }

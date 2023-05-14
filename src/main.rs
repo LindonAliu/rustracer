@@ -26,7 +26,7 @@ use crate::scene::Scene;
 
 fn main() {
     let argc = std::env::args().len();
-    if argc < 2 || argc > 3 {
+    if !(2..=3).contains(&argc) {
         println!("Usage: ./raytracer <scene.json> [output.png]");
         std::process::exit(84);
     }

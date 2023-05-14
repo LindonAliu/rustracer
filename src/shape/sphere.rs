@@ -37,10 +37,6 @@ impl Shape for Sphere {
             w: 1.,
         };
 
-        if let Some(x) = intersect_polynomial(pt_sphere) {
-            Some(sphere_calcul_intersect(self, ray, x))
-        } else {
-            None
-        }
+        intersect_polynomial(pt_sphere).map(|x| sphere_calcul_intersect(self, ray, x))
     }
 }

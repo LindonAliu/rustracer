@@ -55,8 +55,8 @@ impl Shape for Transformation {
             normal.w = 1.0;
             Some(Intersection {
                 intersection_point: new_intersection,
-                normal: normal,
-                distance: distance,
+                normal,
+                distance,
                 material: intersection.material,
             })
         } else {

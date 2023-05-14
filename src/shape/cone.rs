@@ -45,10 +45,6 @@ impl Shape for Cone {
             w: 1.,
         };
 
-        if let Some(x) = intersect_polynomial(pt_cone) {
-            Some(cone_calcul_intersect(self, ray, x))
-        } else {
-            None
-        }
+        intersect_polynomial(pt_cone).map(|x| cone_calcul_intersect(self, ray, x))
     }
 }
