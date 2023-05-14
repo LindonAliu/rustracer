@@ -71,6 +71,7 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {
             std::process::exit(84);
         }
     }
+    _model.scene.camera.update(_app);
     println!("Done!");
 }
 
