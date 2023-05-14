@@ -26,16 +26,8 @@ fn cylinder_calcul_intersect(cylinder: &Cylinder, ray: &Ray, x: f64) -> Intersec
         z: 0.,
         w: 1.
     };
-    Intersection {
-        intersection_point: intersection_point,
-        distance: (ray.origin - intersection_point).length(),
-        normal: if ray.direction.dot(normal) > 0. {
-            -normal
-        } else {
-            normal
-        },
-        material: cylinder.material
-    }
+
+    Intersection::new(intersection_point, normal, cylinder.material, ray)
 }
 
 #[typetag::serde]

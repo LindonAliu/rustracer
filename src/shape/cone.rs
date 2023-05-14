@@ -31,16 +31,7 @@ fn cone_calcul_intersect(cone: &Cone, ray: &Ray, x: f64) -> Intersection {
     let p = v.cross(d).normalize();
     let normal = p.cross(v);
 
-    Intersection {
-        intersection_point: intersection_point,
-        distance: (ray.origin - intersection_point).length(),
-        normal: if ray.direction.dot(normal) > 0. {
-            -normal
-        } else {
-            normal
-        },
-        material: cone.material,
-    }
+    Intersection::new(intersection_point, normal, cone.material, ray)
 }
 
 #[typetag::serde]

@@ -22,17 +22,8 @@ pub struct Sphere {
 fn sphere_calcul_intersect(sphere: &Sphere, ray: &Ray, x: f64) -> Intersection {
     let intersection_point: Vector3D = ray.origin + ray.direction * x;
     let normal: Vector3D = intersection_point - sphere.center;
-    
-    Intersection {
-        intersection_point: intersection_point,
-        distance: (ray.origin - intersection_point).length(),
-        normal: if ray.direction.dot(normal) > 0. {
-            -normal
-        } else {
-            normal
-        },
-        material: sphere.material
-    }
+
+    Intersection::new(intersection_point, normal, sphere.material, ray)
 }
 
 #[typetag::serde]

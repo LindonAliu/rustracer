@@ -93,16 +93,7 @@ impl Shape for Triangle {
             return None;
         }
         Some (
-            Intersection {
-                intersection_point: intersection_point,
-                distance: (ray.origin - intersection_point).length(),
-                normal: if self.normal.dot(ray.direction) > 0. {
-                    -self.normal
-                } else {
-                    self.normal
-                },
-                material: self.material
-            }
+            Intersection::new(intersection_point, self.normal, self.material, ray)
         )
     }
 }
