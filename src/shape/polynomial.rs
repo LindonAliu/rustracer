@@ -20,9 +20,7 @@ pub fn intersect_polynomial(polynomial: Vector3D) -> Option<f64> {
         return None;
     }
 
-    if delta == 0. {
-        Some(x1)
-    } else if x1 >= 0. && x2 < 0. {
+    if delta == 0. || (x1 >= 0. && x2 < 0.) {
         Some(x1)
     } else if x2 >= 0. && x1 < 0. {
         Some(x2)

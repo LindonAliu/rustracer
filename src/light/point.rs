@@ -39,7 +39,7 @@ impl Point {
                 if color.a == 255 {
                     0.
                 } else {
-                    self.shadow(&result, shape) * (((255. - color.a as f64) / 255.))
+                    self.shadow(&result, shape) * ((255. - color.a as f64) / 255.)
                 }
             } else {
                 0. // TODO: mirrrrrooorr
