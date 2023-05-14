@@ -55,8 +55,8 @@ fn get_matrix_direction_event_x(app: &App) -> Matrix {
     tb.get_matrix()
 }
 
-fn get_position_matrix_event(app: &App) -> Matrix {
-    let mut tb = TransformationBuilder::new();
+fn get_position_matrix_event(app: &App) -> Vector3D {
+    let mut tb = Vector3D { x: 0., y: 0., z: 0., w: 1.};
     let how_much = if app.keys.down.contains(&Key::LShift) || app.keys.down.contains(&Key::RShift) {
         5.
     } else {
@@ -64,24 +64,24 @@ fn get_position_matrix_event(app: &App) -> Matrix {
     };
 
     if app.keys.down.contains(&Key::Left) {
-        tb = tb.translation(Vector3D { x: -how_much, y: 0., z: 0., w: 1.});
+        tb.x -= how_much;
     }
     if app.keys.down.contains(&Key::Right) {
-        tb = tb.translation(Vector3D { x: how_much, y: 0., z: 0., w: 1.});
+        tb.x += how_much;
     }
     if app.keys.down.contains(&Key::Up) {
-        tb = tb.translation(Vector3D { x: 0., y: how_much, z: 0., w: 1.});
+        tb.y += how_much;
     }
     if app.keys.down.contains(&Key::Down) {
-        tb = tb.translation(Vector3D { x: 0., y: -how_much, z: 0., w: 1.});
+        tb.y -= how_much;
     }
     if app.keys.down.contains(&Key::I) {
-        tb = tb.translation(Vector3D { x: 0., y: 0., z: how_much, w: 1.});
+        tb.z += how_much;
     }
     if app.keys.down.contains(&Key::K) {
-        tb = tb.translation(Vector3D { x: 0., y: 0., z: -how_much, w: 1.});
+        tb.z -= how_much;
     }
-    tb.get_matrix()
+    tb
 }
 
 impl Scene {
@@ -91,7 +91,6 @@ impl Scene {
         let event_x = get_matrix_direction_event_x(app);
         let event_y = get_matrix_direction_event_y(app);
 
-        // self.camera.direction = matrix_direction.clone() * matrix_direction_event * matrix_direction.inverse() * self.camera.direction;
         let direction = event_y * matrix_direction.clone() * event_x;
 
         self.camera.direction.x = direction[(2, 0)];
@@ -104,7 +103,7 @@ impl Scene {
         let matrix = get_camera_transformation(self);
         let translations = get_position_matrix_event(app);
 
-        self.camera.position = matrix.clone() * translations * Vector3D { x: 0., y: 0., z: 0., w: 1.};
+        self.camera.position += matrix.clone() * translations;
     }
 
     pub fn update(&mut self, app: &App) {
