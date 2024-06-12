@@ -5,8 +5,10 @@
 // vector 3d type
 //
 
-use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg, Index, IndexMut};
 use serde::{Deserialize, Serialize};
+use std::ops::{
+    Add, AddAssign, Div, DivAssign, Index, IndexMut, Mul, MulAssign, Neg, Sub, SubAssign,
+};
 
 pub type Point3D = Vector3D;
 
@@ -24,6 +26,15 @@ fn default_w() -> f64 {
 }
 
 impl Vector3D {
+    pub fn scale(&self, scalar: f64) -> Vector3D {
+        Vector3D {
+            x: self.x * scalar,
+            y: self.y * scalar,
+            z: self.z * scalar,
+            w: self.w * scalar,
+        }
+    }
+
     pub fn length(&self) -> f64 {
         (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
     }
@@ -39,7 +50,7 @@ impl Vector3D {
             x: ((self.y * other.z) - (self.z * other.y)),
             y: ((self.z * other.x) - (self.x * other.z)),
             z: ((self.x * other.y) - (self.y * other.x)),
-            w: (1.0)
+            w: (1.0),
         };
         res
     }
