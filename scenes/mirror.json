@@ -1,0 +1,79 @@
+{
+    "shape": {
+        "type": "Composite",
+        "shapes": [
+            {
+                "type": "Plane",
+                "pos": {
+                    "x": 2,
+                    "y": 0,
+                    "z": 0
+                },
+                "normal": {
+                    "x": 1,
+                    "y": 0,
+                    "z": 0
+                },
+                "material": "Mirror"
+            },
+            {
+                "type": "Sphere",
+                "center": {
+                    "x": 12,
+                    "y": 0,
+                    "z": 0
+                },
+                "radius": 1,
+                "material": {
+                    "Color": {
+                        "r": 255,
+                        "g": 0,
+                        "b": 255,
+                        "a": 255
+                    }
+                }
+            }
+        ]
+    },
+    "camera": {
+        "direction": {
+            "x": 1,
+            "y": 0,
+            "z": 0
+        },
+        "position": {
+            "x": 10,
+            "y": 0,
+            "z": 0
+        },
+        "fov": 60,
+        "width": 1920,
+        "height": 1080
+    },
+    "lights": [
+        {
+            "type": "Point",
+            "pos": {
+                "x": 10,
+                "y": 25,
+                "z": 0
+            },
+            "color": {
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+            }
+        },
+        {
+            "type": "Ambient",
+            "multiplier": 0.2,
+            "color": {
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+            }
+        }
+    ]
+}
